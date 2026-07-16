@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newspeak 1984 — Phân Tích Ngôn Ngữ Toàn Trị</title>
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e12;
+    --glass:rgba(15,35,45,0.25);
+    --glass-2:rgba(10,25,35,0.35);
+    --line:rgba(100,200,220,0.18);
+    --line-strong:rgba(100,200,220,0.35);
+
+    --cyan:#00d4ff; --cyan-dark:#004d66; --cyan-light:#66e6ff;
+    --red:#ff4444; --red-dark:#660000; --red-light:#ff9999;
+    --gray:#888888; --silver:#cccccc;
+
+    --ink:#e0f2f7; --ink-dim:#7ab8d0; --ink-faint:#4a7a8a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%; background:var(--bg);}
+  
+  #bgFixed{
+    position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-2; pointer-events:none;
+    background-color:var(--bg);
+    background-image:repeating-linear-gradient(90deg,
+      rgba(0,212,255,0.03) 0px, rgba(0,212,255,0.03) 2px,
+      transparent 2px, transparent 40px);
+  }
+  
+  #bgGlow{
+    position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(circle 500px at 20% 30%, rgba(0,212,255,0.12), transparent 70%),
+      radial-gradient(circle 450px at 80% 70%, rgba(255,68,68,0.10), transparent 70%);
+    filter:blur(8px);
+  }
+  
+  body{background:transparent; color:var(--ink); font-family:'Cormorant Garamond', serif; overflow-x:hidden; scroll-snap-type:y proximity;}
+  h1,h2,h3{font-family:Tahoma, 'Segoe UI', sans-serif; font-weight:700;}
+  
+  .title-main{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    font-weight:900;
+    font-size:clamp(2.4rem,5vw,3.8rem);
+    letter-spacing:.02em;
+    line-height:1.2;
+    background:linear-gradient(100deg, var(--cyan-dark) 0%, var(--cyan) 30%, var(--cyan-light) 60%, var(--silver) 100%);
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shimmer 12s linear infinite;
+  }
+  
+  @keyframes shimmer{0%{background-position:0%}100%{background-position:300%}}
+  
+  .glass{ 
+    background:var(--glass); 
+    backdrop-filter:blur(18px) saturate(150%); 
+    -webkit-backdrop-filter:blur(18px) saturate(150%); 
+    border:1px solid var(--line); 
+    border-radius:8px; 
+    box-shadow:0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03); 
+    position:relative; 
+  }
+  .glass::before{ 
+    content:''; 
+    position:absolute; 
+    inset:0; 
+    border-radius:8px; 
+    background:linear-gradient(160deg, rgba(255,255,255,0.04), transparent 40%); 
+    pointer-events:none; 
+  }
+  
+  section.screen{
+    min-height:100vh; 
+    scroll-snap-align:start; 
+    padding:60px 5vw 40px; 
+    display:flex; 
+    flex-direction:column; 
+    position:relative; 
+    border-bottom:1px solid var(--line);
+  }
+  
+  .topbar{
+    display:flex; 
+    align-items:baseline; 
+    justify-content:space-between; 
+    margin-bottom:32px; 
+    flex-wrap:wrap; 
+    gap:16px;
+  }
+  
+  .eyebrow{
+    font-family:'Space Mono', monospace; 
+    letter-spacing:.2em; 
+    text-transform:uppercase; 
+    font-size:10.5px; 
+    color:var(--cyan); 
+    opacity:.85;
+  }
+  
+  .sec-title{
+    font-size:clamp(1.8rem, 3vw, 2.6rem); 
+    margin:8px 0 0; 
+    font-family:'Space Mono', monospace;
+    color:var(--cyan-light);
+  }
+  
+  .pageflag{
+    font-family:'Space Mono', monospace; 
+    font-size:11px; 
+    color:var(--ink-faint); 
+    letter-spacing:.08em; 
+    text-transform:uppercase; 
+    border:1px solid var(--line); 
+    background:var(--glass); 
+    backdrop-filter:blur(10px); 
+    padding:6px 14px; 
+    border-radius:20px;
+  }
+  
+  .collapse-btn{
+    font-family:'Space Mono', monospace; 
+    font-size:10px; 
+    letter-spacing:.05em; 
+    text-transform:uppercase; 
+    color:var(--cyan); 
+    background:var(--glass-2); 
+    backdrop-filter:blur(8px); 
+    border:1px solid var(--cyan-dark); 
+    border-radius:16px; 
+    padding:6px 13px; 
+    cursor:pointer; 
+    transition:all .2s;
+  }
+  .collapse-btn:hover{ background:rgba(0,212,255,.15); }
+  
+  .kpi-row{
+    display:grid; 
+    grid-template-columns:repeat(4,1fr); 
+    gap:18px; 
+    margin-bottom:28px;
+  }
+  @media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
+  
+  .kpi{
+    padding:20px 22px; 
+    border-left:2px solid var(--cyan);
+    position:relative;
+    z-index:1;
+  }
+  .kpi .num{
+    font-family:'Space Mono', monospace; 
+    font-size:2rem; 
+    font-weight:700; 
+    color:var(--cyan); 
+  }
+  .kpi .lbl{
+    font-family:'Cormorant Garamond',serif; 
+    font-size:12px; 
+    letter-spacing:.09em; 
+    text-transform:uppercase; 
+    color:var(--ink-faint); 
+    margin-top:8px;
+  }
+  
+  .panel{
+    padding:26px; 
+    display:flex; 
+    flex-direction:column;
+    position:relative;
+    z-index:1;
+  }
+  
+  .panel h3{
+    font-size:1.1rem; 
+    margin:0 0 18px; 
+    color:var(--cyan-light); 
+    font-weight:600; 
+    display:flex; 
+    align-items:center; 
+    justify-content:space-between; 
+    flex-wrap:wrap; 
+    gap:10px;
+  }
+  
+  .tag{
+    font-family:'Space Mono', monospace; 
+    font-size:9.5px; 
+    letter-spacing:.08em; 
+    color:var(--ink-faint); 
+    text-transform:uppercase; 
+    font-weight:400;
+  }
+  
+  .essay-text{
+    font-size:15px; 
+    line-height:1.8; 
+    color:var(--ink-dim); 
+    margin:0 0 16px;
+  }
+  
+  .essay-text strong{
+    color:var(--cyan-light); 
+    font-weight:600;
+  }
+  
+  .section-header{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    font-weight:700;
+    margin:24px 0 12px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:8px;
+  }
+  
+  .quote-block{
+    background:rgba(0,212,255,0.08);
+    border-left:3px solid var(--cyan);
+    padding:16px 18px;
+    margin:16px 0;
+    border-radius:4px;
+    font-style:italic;
+    color:var(--ink-dim);
+    font-size:14px;
+  }
+  
+  .word-pair{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    padding:14px;
+    margin:8px 0;
+    background:var(--glass-2);
+    border-radius:4px;
+    align-items:center;
+  }
+  
+  .word-box{
+    padding:10px 14px;
+    background:var(--glass);
+    border-radius:4px;
+    font-family:'Space Mono',monospace;
+    font-size:13px;
+    font-weight:600;
+    border-left:2px solid;
+  }
+  
+  .word-original{border-left-color:var(--cyan);}
+  .word-newspeak{border-left-color:var(--red);}
+  
+  .insight-box{
+    background:linear-gradient(135deg, rgba(0,212,255,0.1), rgba(255,68,68,0.08));
+    border:1px solid var(--line-strong);
+    padding:18px;
+    border-radius:6px;
+    margin:16px 0;
+  }
+  
+  .insight-title{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    color:var(--cyan);
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  
+  .insight-text{
+    font-size:14px;
+    color:var(--ink-dim);
+    line-height:1.6;
+  }
+  
+  .comparison-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:16px 0;
+    font-size:13px;
+  }
+  
+  .comparison-table th{
+    background:var(--glass-2);
+    padding:12px;
+    text-align:left;
+    color:var(--cyan);
+    font-weight:700;
+    border-bottom:2px solid var(--line);
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    text-transform:uppercase;
+  }
+  
+  .comparison-table td{
+    padding:12px;
+    border-bottom:1px solid var(--line);
+    color:var(--ink-dim);
+  }
+  
+  .comparison-table tr:hover{
+    background:rgba(0,212,255,0.06);
+  }
+  
+  .grid-3col{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    flex:1;
+  }
+  @media(max-width:900px){.grid-3col{grid-template-columns:1fr;}}
+  
+  footer{
+    text-align:center;
+    padding:40px 0 24px;
+    font-family:'Space Mono', monospace;
+    color:var(--ink-faint);
+    font-size:10.5px;
+    letter-spacing:.06em;
+    border-top:1px solid var(--line);
+  }
+  
+  .screen.collapsed{min-height:0 !important; padding-bottom:20px;}
+  .screen.collapsed > *:not(.topbar){display:none !important;}
+</style>
+</head>
+<body>
+
+<div id="bgFixed"></div>
+<div id="bgGlow"></div>
+
+<!-- ============ SCREEN 1 — GIỚI THIỆU ============ -->
+<section class="screen" id="s1">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Phân Tích Ngôn Ngữ Chính Trị &amp; Kiểm Soát Tư Duy</div>
+      <h1 class="title-main">Newspeak</h1>
+      <p style="color:var(--ink-dim); font-size:16px; margin:12px 0 0; font-style:italic;">Người nào kiểm soát quá khứ kiểm soát tương lai. Người nào kiểm soát hiện tại kiểm soát quá khứ.</p>
+      <p style="color:var(--ink-faint); font-size:13px; margin:8px 0 0; font-family:'Space Mono',monospace;">— George Orwell, <em>1984</em></p>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
+      <div class="pageflag">Trang <b>01</b> / 07</div>
+    </div>
+  </div>
+
+  <div class="kpi-row" id="kpiRow"></div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px; flex:1;">
+    <div class="panel glass">
+      <h3>Giới thiệu bài luận</h3>
+      <p class="essay-text">
+        Trong tiểu thuyết <strong>1984</strong> của George Orwell, Newspeak không phải là một ngôn ngữ thông thường được phát triển tự nhiên theo thời gian. Đây là một công cụ <strong>chính trị được thiết kế có mục đích</strong> để hạn chế khả năng suy nghĩ và diễn đạt của dân chúng.
+      </p>
+      <p class="essay-text">
+        Bài luận này phân tích cách thức Newspeak hoạt động như một <strong>công cụ kiểm soát tư duy</strong>, từ cấu trúc từ vựng đến ứng dụng chính trị, và những nguy hiểm nó mang lại khi được áp dụng trong thực tế.
+      </p>
+    </div>
+
+    <div class="panel glass">
+      <h3>Mục tiêu của Newspeak</h3>
+      <div class="insight-box">
+        <div class="insight-title">🎯 Mục tiêu 1: Làm hẹp phạm vi tư duy</div>
+        <div class="insight-text">Bằng cách cắt giảm số lượng từ, nhà cầm quyền cố gắng loại bỏ khả năng diễn đạt những ý tưởng "nguy hiểm".</div>
+      </div>
+      <div class="insight-box">
+        <div class="insight-title">🎯 Mục tiêu 2: Khiến khó tư duy độc lập</div>
+        <div class="insight-text">Khi không có từ để diễn đạt một ý tưởng, người dân sẽ không thể hoặc khó khăn tư duy về nó.</div>
+      </div>
+      <div class="insight-box">
+        <div class="insight-title">🎯 Mục tiêu 3: Làm mờ sự thật</div>
+        <div class="insight-text">Tái định nghĩa từ để biến "chiến tranh" thành "hòa bình", "tự do" thành "nô lệ".</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2 — CẤU TRÚC NEWSPEAK ============ -->
+<section class="screen" id="s2">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Phân tích cấu trúc ngôn ngữ &amp; cơ chế hoạt động</div>
+      <h1 class="sec-title"><span style="color:var(--cyan);">I.</span> Cấu Trúc Newspeak</h1>
+    </div>
+    <div class="topbar-right" style="display:flex; gap:10px; align-items:center;">
+      <div class="pageflag">Trang <b>02</b> / 07</div>
+      <button class="collapse-btn" data-target="s2">⌄ Thu gọn</button>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px; flex:1;">
+    <div class="panel glass">
+      <h3>A. Vocabulary (Từ Vựng)</h3>
+      <p class="essay-text">
+        Newspeak được chia thành ba lớp từ vựng:
+      </p>
+      
+      <div class="insight-box">
+        <div class="insight-title">📚 Tầng A: Từ vựng cơ bản</div>
+        <div class="insight-text">Những từ để nói về những sự vật bình thường: cơm, nước, bàn, ghế. Các từ này gần như giống trong Oldspeak.</div>
+      </div>
+      
+      <div class="insight-box">
+        <div class="insight-title">📚 Tầng B: Từ vựng chính trị</div>
+        <div class="insight-text">Những từ được tạo ra đặc biệt cho mục đích chính trị. Ví dụ: "thoughtcrime" (tội ác suy nghĩ), "crimethink" (suy nghĩ tội ác), "doublethink" (tư duy kép).</div>
+      </div>
+      
+      <div class="insight-box">
+        <div class="insight-title">📚 Tầng C: Từ vựng kỹ thuật</div>
+        <div class="insight-text">Các từ dùng cho khoa học, kỹ thuật, nghệ thuật. Những lĩnh vực được nhà nước kiểm soát chặt chẽ.</div>
+      </div>
+    </div>
+
+    <div class="panel glass">
+      <h3>B. Ba Kỹ Thuật Phá Hủy Từ</h3>
+      
+      <div style="margin:16px 0;">
+        <div class="section-header">1️⃣ Rút gọn (Reduction)</div>
+        <p class="essay-text" style="margin:8px 0;">
+          Cắt giảm số lượng từ, khiến người nói khó thể hiện ý tưởng phức tạp.
+        </p>
+        <div class="word-pair">
+          <div class="word-box word-original">OLDSPEAK: crime, guilt, sin, transgression</div>
+          <div class="word-box word-newspeak">NEWSPEAK: thoughtcrime</div>
+        </div>
+      </div>
+
+      <div style="margin:16px 0;">
+        <div class="section-header">2️⃣ Tái Định Nghĩa (Redefinition)</div>
+        <p class="essay-text" style="margin:8px 0;">
+          Thay đổi ý nghĩa của từ, thường là ngược lại với ý nghĩa gốc.
+        </p>
+        <div class="word-pair">
+          <div class="word-box word-original">OLDSPEAK: freedom = liberty, independence</div>
+          <div class="word-box word-newspeak">NEWSPEAK: freedom = slavery, obedience</div>
+        </div>
+      </div>
+
+      <div style="margin:16px 0;">
+        <div class="section-header">3️⃣ Ghép Từ (Amalgamation)</div>
+        <p class="essay-text" style="margin:8px 0;">
+          Kết hợp những từ để tạo ra ý nghĩa mới, thường che phủ thực chất.
+        </p>
+        <div class="word-pair">
+          <div class="word-box word-original">OLDSPEAK: Ministry of Peace</div>
+          <div class="word-box word-newspeak">NEWSPEAK: MINIPEACE (cơ quan chiến tranh)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 3 — CƠ CHẾ KIỂM SOÁT TƯ DUY ============ -->
+<section class="screen" id="s3">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Cách Newspeak thao túng quá trình suy nghĩ</div>
+      <h1 class="sec-title"><span style="color:var(--cyan);">II.</span> Cơ Chế Kiểm Soát Tư Duy</h1>
+    </div>
+    <div class="topbar-right" style="display:flex; gap:10px;">
+      <div class="pageflag">Trang <b>03</b> / 07</div>
+      <button class="collapse-btn" data-target="s3">⌄ Thu gọn</button>
+    </div>
+  </div>
+
+  <div class="panel glass" style="margin-bottom:22px;">
+    <h3>A. Mối Liên Hệ Giữa Ngôn Ngữ &amp; Suy Nghĩ (Sapir-Whorf Hypothesis)</h3>
+    <p class="essay-text">
+      Giả thuyết Sapir-Whorf cho rằng <strong>ngôn ngữ hình thành cách suy nghĩ của người nói</strong>. Nếu bạn không có từ để diễn đạt một ý tưởng, bạn sẽ khó khăn hơn trong việc tư duy về nó, thậm chí không thể tư duy về nó.
+    </p>
+    
+    <div class="quote-block">
+      "Don't you see that the whole aim of Newspeak is to make thoughtcrime impossible? It is to make thought itself impossible... Every year fewer and fewer words, and the range of consciousness always a little smaller." — O'Brien, 1984
+    </div>
+    
+    <p class="essay-text">
+      Orwell hiểu rằng nếu nhà nước có thể <strong>kiểm soát ngôn ngữ</strong>, họ có thể kiểm soát <strong>suy nghĩ</strong>.
+    </p>
+  </div>
+
+  <div class="panel glass" style="margin-bottom:22px;">
+    <h3>B. Năm Cơ Chế Chính Kiểm Soát Tư Duy</h3>
+    
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Cơ Chế</th>
+          <th>Phương Thức Hoạt Động</th>
+          <th>Kết Quả</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Loại Bỏ Từ</strong></td>
+          <td>Xóa những từ có liên quan đến ý tưởng "nguy hiểm"</td>
+          <td>Không thể diễn đạt, do đó không thể tư duy</td>
+        </tr>
+        <tr>
+          <td><strong>Ngược Ý Nghĩa</strong></td>
+          <td>Biến những từ tích cực thành tiêu cực (hoặc ngược lại)</td>
+          <td>Nhầm lẫn tâm lý, mất định hướng giá trị</td>
+        </tr>
+        <tr>
+          <td><strong>Giảm Độ Tinh Tế</strong></td>
+          <td>Hạn chế khả năng diễn đạt những sắc thái của ý tưởng</td>
+          <td>Suy nghĩ trở nên thô lỗ, nhị phân (đúng/sai)</td>
+        </tr>
+        <tr>
+          <td><strong>Tăng Sức Mạnh Cảm Xúc</strong></td>
+          <td>Làm cho những từ cơ bản mang sức mạnh cảm xúc mạnh mẽ</td>
+          <td>Phản ứng bản năng thay vì suy nghĩ lý trí</td>
+        </tr>
+        <tr>
+          <td><strong>Doublethink</strong></td>
+          <td>Bắt buộc chấp nhận hai ý tưởng mâu thuẫn cùng lúc</td>
+          <td>Suy sụp khả năng tư duy logic, tuân phục mù quáng</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-3col">
+    <div class="panel glass">
+      <h3>C. Ảnh Hưởng Đến Bộ Não</h3>
+      <p class="essay-text">
+        Mỗi khi một từ bị loại bỏ hoặc được tái định nghĩa, <strong>những kết nối thần kinh trong bộ não cũng thay đổi</strong>. Sau đủ lâu, người nói Newspeak sẽ tập quán suy nghĩ theo những đường mòn được cài sẵn.
+      </p>
+    </div>
+
+    <div class="panel glass">
+      <h3>D. Vòng Lặp Tự Thực Hiện</h3>
+      <p class="essay-text">
+        <strong>Thế hệ 1:</strong> Sử dụng Newspeak một phần, Oldspeak một phần. <strong>Thế hệ 2:</strong> Sử dụng Newspeak chủ yếu. <strong>Thế hệ 3:</strong> Chỉ nói Newspeak, hoàn toàn quên lãng Oldspeak.
+      </p>
+    </div>
+
+    <div class="panel glass">
+      <h3>E. Thuận Lợi Cho Nhà Cầm Quyền</h3>
+      <p class="essay-text">
+        Một dân số không có khả năng tư duy độc lập là <strong>dân số dễ kiểm soát, dễ thao túng, dễ vâng lệnh</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 4 — PHÂN TÍCH TỪ CHỮ ============ -->
+<section class="screen" id="s4">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Những từ chủ chốt &amp; tác dụng của chúng</div>
+      <h1 class="sec-title"><span style="color:var(--cyan);">III.</span> Phân Tích Từ Chủ Chốt</h1>
+    </div>
+    <div class="topbar-right" style="display:flex; gap:10px;">
+      <div class="pageflag">Trang <b>04</b> / 07</div>
+      <button class="collapse-btn" data-target="s4">⌄ Thu gọn</button>
+    </div>
+  </div>
+
+  <div class="panel glass" style="flex:1; position:relative; z-index:1;">
+    <h3>Những Từ Newspeak Nổi Bật &amp; Ảnh Hưởng</h3>
+
+    <div style="display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px;">
+      
+      <div style="background:var(--glass-2); padding:16px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-weight:700; color:var(--red); margin-bottom:6px; font-size:12px;">01 — THOUGHTCRIME</div>
+        <p class="essay-text" style="margin:0;">
+          <strong>Định nghĩa:</strong> Bất kỳ suy nghĩ nào không tuân theo chủ trương của Đảng.<br>
+          <strong>Tác dụng:</strong> Biến suy nghĩ thành tội ác. Khiến mọi hình thức tư duy độc lập trở thành bất hợp pháp.
+        </p>
+      </div>
+
+      <div style="background:var(--glass-2); padding:16px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-weight:700; color:var(--red); margin-bottom:6px; font-size:12px;">02 — DOUBLETHINK</div>
+        <p class="essay-text" style="margin:0;">
+          <strong>Định nghĩa:</strong> Khả năng chấp nhận hai tuyên bố mâu thuẫn cùng lúc.<br>
+          <strong>Tác dụng:</strong> Phá hủy khả năng tư duy logic. Biến người nói thành những tấm lòng chứa đựng những mâu thuẫn vô cùng.
+        </p>
+      </div>
+
+      <div style="background:var(--glass-2); padding:16px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-weight:700; color:var(--red); margin-bottom:6px; font-size:12px;">03 — CRIMESTOP</div>
+        <p class="essay-text" style="margin:0;">
+          <strong>Định nghĩa:</strong> Khả năng dừng lại bất kỳ dòng suy nghĩ nào mà bạn cảm thấy có thể là độc hại.<br>
+          <strong>Tác dụng:</strong> Tự kiểm duyệt tư duy. Loại bỏ nhu cầu kiểm duyệt bên ngoài khi mọi người tự kiểm duyệt chính mình.
+        </p>
+      </div>
+
+      <div style="background:var(--glass-2); padding:16px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-weight:700; color:var(--red); margin-bottom:6px; font-size:12px;">04 — BELLYFEEL</div>
+        <p class="essay-text" style="margin:0;">
+          <strong>Định nghĩa:</strong> Một cảm giác cơ bản, bản năng, không cần lý do hay bằng chứng.<br>
+          <strong>Tác dụng:</strong> Thay thế logic bằng cảm giác. Người nói không cần hiểu tại sao họ tin, họ chỉ cần "cảm thấy".
+        </p>
+      </div>
+
+      <div style="background:var(--glass-2); padding:16px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-weight:700; color:var(--red); margin-bottom:6px; font-size:12px;">05 — INGSOC (English Socialism)</div>
+        <p class="essay-text" style="margin:0;">
+          <strong>Định nghĩa:</strong> Tên gọi rút gọn cho chế độ chính trị của Đảng.<br>
+          <strong>Tác dụng:</strong> Biến một hệ thống độc tài thành một từ duy nhất, không thể phê bình chi tiết. Khi bạn nói "Ingsoc", bạn không thể phân tích các thành phần của nó.
+        </p>
+      </div>
+
+      <div style="background:var(--glass-2); padding:16px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-weight:700; color:var(--red); margin-bottom:6px; font-size:12px;">06 — WAR IS PEACE, FREEDOM IS SLAVERY, IGNORANCE IS STRENGTH</div>
+        <p class="essay-text" style="margin:0;">
+          <strong>Định nghĩa:</strong> Ba câu khẩu hiệu của Đảng, chứa những mâu thuẫn rõ ràng.<br>
+          <strong>Tác dụng:</strong> Luyện tập doublethink. Người nói phải chấp nhận những mâu thuẫn này không có câu hỏi, làm suy yếu khả năng tư duy logic của họ.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 5 — TÁC ĐỘNG XÃ HỘI &amp; CHÍNH TRỊ ============ -->
+<section class="screen" id="s5">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Hệ quả lâu dài &amp; ứng dụng chính trị</div>
+      <h1 class="sec-title"><span style="color:var(--cyan);">IV.</span> Tác Động Xã Hội &amp; Chính Trị</h1>
+    </div>
+    <div class="topbar-right" style="display:flex; gap:10px;">
+      <div class="pageflag">Trang <b>05</b> / 07</div>
+      <button class="collapse-btn" data-target="s5">⌄ Thu gọn</button>
+    </div>
+  </div>
+
+  <div class="panel glass" style="margin-bottom:22px;">
+    <h3>A. Loại Bỏ Ý Kiến Đối Lập</h3>
+    <p class="essay-text">
+      Khi không có từ để diễn đạt ý kiến đối lập, ý kiến đó sẽ chết tự nhiên. Ví dụ:
+    </p>
+    <div class="quote-block">
+      Nếu bạn muốn phản đối chiến tranh, nhưng từ duy nhất để nói về chiến tranh là "peace" (hòa bình), bạn không thể phản đối. Vì phản đối có nghĩa là phản đối hòa bình, điều đó là điên rồ.
+    </div>
+  </div>
+
+  <div class="panel glass" style="margin-bottom:22px;">
+    <h3>B. Sự Nâng Cao Của Nhà Nước Cảnh Sát</h3>
+    <p class="essay-text">
+      Với Newspeak, <strong>chỉ có một cách duy nhất để nói về bất kỳ vấn đề gì</strong>, và đó là cách mà Đảng đã định sẵn. Bất kỳ sự lệch lạc nào khỏi những từ được phê duyệt là ngay lập tức phát hiện được.
+    </p>
+    <p class="essay-text">
+      Điều này làm cho công việc của Sở Tư Tưởng (Thought Police) dễ dàng hơn rất nhiều. Họ không cần phải hiểu ý của bạn - nếu bạn sử dụng các từ "sai", đó là đủ để buộc tội bạn.
+    </p>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px; flex:1;">
+    <div class="panel glass">
+      <h3>C. Tạo Lập Sự Phụ Thuộc Vào Nhà Nước</h3>
+      <p class="essay-text">
+        Mọi người trở nên phụ thuộc vào nhà nước để cho họ <strong>những từ để suy nghĩ</strong>. Không có Newspeak Dictionary được Đảng cấp, bạn không thể biết làm thế nào để suy nghĩ một cách chính xác.
+      </p>
+      <p class="essay-text">
+        Điều này tạo ra một <strong>sự phụ thuộc tâm lý sâu sắc</strong> vào Đảng.
+      </p>
+    </div>
+
+    <div class="panel glass">
+      <h3>D. Tạo Ra Một Thế Hệ "Được Thiết Kế"</h3>
+      <p class="essay-text">
+        Các trẻ em sinh ra trong Newspeak không bao giờ biết rằng họ bị kiểm soát. Họ không biết rằng từ pháp của họ bị cắt cụt. Họ không có gì để so sánh.
+      </p>
+      <p class="essay-text">
+        Đối với họ, Newspeak <strong>là ngôn ngữ duy nhất có thể tưởng tượng được</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 6 — SO SÁNH VỚI THỰC TẾ ============ -->
+<section class="screen" id="s6">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Ứng dụng lịch sử &amp; hiện đại của Newspeak</div>
+      <h1 class="sec-title"><span style="color:var(--cyan);">V.</span> So Sánh Với Thế Giới Thực Tế</h1>
+    </div>
+    <div class="topbar-right" style="display:flex; gap:10px;">
+      <div class="pageflag">Trang <b>06</b> / 07</div>
+      <button class="collapse-btn" data-target="s6">⌄ Thu gọn</button>
+    </div>
+  </div>
+
+  <div class="panel glass" style="margin-bottom:22px; flex:1;">
+    <h3>A. Những Ví Dụ Lịch Sử</h3>
+    
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Chế Độ</th>
+          <th>Kỹ Thuật Newspeak</th>
+          <th>Ví Dụ Từ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Nazi Đức</strong></td>
+          <td>Làm mờ sự thật qua từ vựng</td>
+          <td>"Endlösung" (giải pháp cuối cùng) cho diệt chủng</td>
+        </tr>
+        <tr>
+          <td><strong>Liên Xô</strong></td>
+          <td>Tái định nghĩa ý tưởng</td>
+          <td>"Quốc tế" = độc quyền Xô viết</td>
+        </tr>
+        <tr>
+          <td><strong>Khmer Đỏ</strong></td>
+          <td>Loại bỏ từ vựng trí thức</td>
+          <td>Xóa từ "bác sĩ", "giáo sư", bất kỳ từ nào liên quan đến giáo dục</td>
+        </tr>
+        <tr>
+          <td><strong>Trung Quốc Xã Hội Chủ Nghĩa</strong></td>
+          <td>Tái định nghĩa &amp; kiểm soát</td>
+          <td>"Nhân dân Dân Chủ" = độc tài</td>
+        </tr>
+        <tr>
+          <td><strong>Propaganda Hiện Đại</strong></td>
+          <td>Tạo từ mới để che phủ sự thật</td>
+          <td>"Collateral damage" (tổn thất trắc ẩn) = chết dân thường</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel glass">
+    <h3>B. Dấu Hiệu Cảnh Báo Newspeak Trong Hiện Đại</h3>
+    
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+      <div style="background:rgba(255,68,68,0.1); padding:14px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--red); margin-bottom:6px; text-transform:uppercase;">⚠️ Đơn Giản Hóa Quá Mức</div>
+        <p style="font-size:13px; color:var(--ink-dim); margin:0;">Những vấn đề phức tạp được giảm xuống thành một hoặc hai từ khẩu hiệu, không thể thảo luận nuanced.</p>
+      </div>
+
+      <div style="background:rgba(255,68,68,0.1); padding:14px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--red); margin-bottom:6px; text-transform:uppercase;">⚠️ Từ Tân Tạo</div>
+        <p style="font-size:13px; color:var(--ink-dim); margin:0;">Những từ mới được tạo ra nhanh chóng để che phủ những hiện thực không thoải mái.</p>
+      </div>
+
+      <div style="background:rgba(255,68,68,0.1); padding:14px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--red); margin-bottom:6px; text-transform:uppercase;">⚠️ Phân Cực Nhị Phân</div>
+        <p style="font-size:13px; color:var(--ink-dim); margin:0;">Tất cả mọi việc đều được xem là đúng/sai, tốt/xấu, không có trung gian hoặc sắc thái.</p>
+      </div>
+
+      <div style="background:rgba(255,68,68,0.1); padding:14px; border-radius:6px; border-left:3px solid var(--red);">
+        <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--red); margin-bottom:6px; text-transform:uppercase;">⚠️ Cảm Tính Hơn Lý Tính</div>
+        <p style="font-size:13px; color:var(--ink-dim); margin:0;">Các cuộc tranh luận công khai được thúc đẩy bởi cảm xúc thay vì bằng chứng hoặc logic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 7 — KẾT LUẬN ============ -->
+<section class="screen" id="s7">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Tóm tắt &amp; cảnh báo cho tương lai</div>
+      <h1 class="sec-title"><span style="color:var(--cyan);">VI.</span> Kết Luận &amp; Cảnh Báo</h1>
+    </div>
+    <div class="topbar-right" style="display:flex; gap:10px;">
+      <div class="pageflag">Trang <b>07</b> / 07</div>
+      <button class="collapse-btn" data-target="s7">⌄ Thu gọn</button>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr; gap:22px; flex:1;">
+    <div class="panel glass">
+      <h3>Newspeak Là Một Vũ Khí Kiểm Soát Tư Duy</h3>
+      <p class="essay-text">
+        Orwell nhận ra rằng <strong>bạn không cần quân cảnh sát để kiểm soát một dân số — bạn chỉ cần kiểm soát ngôn ngữ của họ</strong>.
+      </p>
+      <p class="essay-text">
+        Newspeak không phải là một sự thất bại của lập pháp hoặc kỹ thuật — nó là một <strong>chiếc máy hoàn hảo để tiêu hủy tự do suy nghĩ</strong>.
+      </p>
+      <div class="quote-block">
+        "Sự độc lập của suy nghĩ không phải chỉ là một lợi ích chính trị, nó là một lợi ích sinh học. Một loài không thể sống sót nếu những cá nhân của nó không thể suy nghĩ độc lập. Nếu Newspeak thành công, nó sẽ loại bỏ hoàn toàn khả năng suy nghĩ này, và khi đó nhân loại sẽ thành một loài bị thuần hóa hoàn toàn."
+      </div>
+    </div>
+
+    <div class="panel glass">
+      <h3>Cảnh Báo Cho Thế Giới Hiện Đại</h3>
+      <p class="essay-text">
+        Trong thế giới số hóa ngày nay, <strong>Newspeak không phải là điều tưởng tượng</strong>. Chúng ta đã thấy:
+      </p>
+      <ul style="margin:12px 0 0 20px; padding:0; color:var(--ink-dim); font-size:14px;">
+        <li style="margin-bottom:8px;"><strong>Social Media Algorithms:</strong> Những thuật toán xác định những từ nào bạn thấy, thao túng ngôn ngữ một cách tinh tế.</li>
+        <li style="margin-bottom:8px;"><strong>Political Rhetoric:</strong> Những từ khẩu hiệu đơn giản hóa quá mức thay thế các cuộc tranh luận nuanced.</li>
+        <li style="margin-bottom:8px;"><strong>Corporate Language:</strong> "Downsizing" thay vì "sa thải", "collateral damage" thay vì "chết dân thường".</li>
+        <li style="margin-bottom:8px;"><strong>Echo Chambers:</strong> Những bong bóng thông tin nơi bạn chỉ nghe những từ và ý tưởng mà bạn đã đồng ý.</li>
+      </ul>
+    </div>
+
+    <div class="panel glass">
+      <h3>Cách Phòng Chống Newspeak</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+        <div style="background:rgba(0,212,255,0.1); padding:14px; border-radius:6px; border-left:3px solid var(--cyan);">
+          <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--cyan); margin-bottom:6px; text-transform:uppercase;">✓ Bảo Vệ Từ Vựng</div>
+          <p style="font-size:13px; color:var(--ink-dim); margin:0;">Học những từ chính xác, thảo luận những ý tưởng phức tạp với sắc thái và nuance.</p>
+        </div>
+
+        <div style="background:rgba(0,212,255,0.1); padding:14px; border-radius:6px; border-left:3px solid var(--cyan);">
+          <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--cyan); margin-bottom:6px; text-transform:uppercase;">✓ Tư Duy Phê Phán</div>
+          <p style="font-size:13px; color:var(--ink-dim); margin:0;">Đặt câu hỏi những khẩu hiệu, những từ đơn giản hóa, những lời nói dối được che phủ bằng ngôn ngữ.</p>
+        </div>
+
+        <div style="background:rgba(0,212,255,0.1); padding:14px; border-radius:6px; border-left:3px solid var(--cyan);">
+          <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--cyan); margin-bottom:6px; text-transform:uppercase;">✓ Đọc Rộng</div>
+          <p style="font-size:13px; color:var(--ink-dim); margin:0;">Tiếp xúc với những quan điểm khác nhau, những cách nói khác nhau về những vấn đề tương tự.</p>
+        </div>
+
+        <div style="background:rgba(0,212,255,0.1); padding:14px; border-radius:6px; border-left:3px solid var(--cyan);">
+          <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--cyan); margin-bottom:6px; text-transform:uppercase;">✓ Suy Nghĩ Độc Lập</div>
+          <p style="font-size:13px; color:var(--ink-dim); margin:0;">Từ chối nhận những từ khẩu hiệu mà không phân tích, từ chối "bellyfeel" mà không lý do.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel glass">
+      <h3>Lời Kết</h3>
+      <div class="quote-block">
+        "Freedom is the freedom to say that two plus two make four. If that is granted, all else follows." — O'Brien, 1984
+      </div>
+      <p class="essay-text">
+        Orwell đã cảnh báo chúng ta: <strong>Tự do suy nghĩ không phải là một lợi ích sang trọng, nó là một nhu cầu sinh tồn</strong>. Khi chúng ta để phép những lực lượng kiểm soát ngôn ngữ của chúng ta, chúng ta đang từ bỏ khả năng để suy nghĩ tự do.
+      </p>
+      <p class="essay-text">
+        Newspeak không bao giờ sẽ hoàn toàn thành công trong thế giới thực, bởi vì <strong>đó sẽ yêu cầu sự kiểm soát tuyệt đối</strong>. Nhưng nó không cần phải hoàn toàn thành công — chỉ cần đủ để làm cho suy nghĩ độc lập trở thành một sự cố gắng ngoài sức người dân.
+      </p>
+      <p class="essay-text">
+        Bằng cách giữ ngôn ngữ của chúng ta sống động, đa dạng và chính xác, chúng ta bảo vệ khả năng suy nghĩ tự do. Đó là cuộc chiến không bao giờ kết thúc.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer id="docFooter">
+  <div style="color:var(--cyan); font-size:13px; font-weight:700; margin-bottom:10px; letter-spacing:.1em;">NEWSPEAK ANALYSIS DASHBOARD</div>
+  <div style="color:var(--ink-faint); font-size:11px; margin-bottom:8px;">PHÂN TÍCH NGÔN NGỮ CHÍNH TRỊ &amp; KIỂM SOÁT TƯ DUY TRONG TIỂU THUYẾT 1984 CỦA GEORGE ORWELL</div>
+  <div style="color:var(--ink-faint); font-size:10px; letter-spacing:.05em;">© 2026 — LÝ LUẬN NGÔN NGỮ &amp; CHÍNH TRỊ</div>
+  <button class="collapse-btn" style="margin-top:16px;" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">↑ LÊN ĐẦU TÀI LIỆU</button>
+</footer>
+
+<script>
+function renderKPI(){
+  document.getElementById('kpiRow').innerHTML = `
+    <div class="kpi glass">
+      <div class="num">4,000+</div>
+      <div class="lbl">Từ vốn bị loại bỏ/năm</div>
+    </div>
+    <div class="kpi glass">
+      <div class="num">3</div>
+      <div class="lbl">Thế hệ để xóa sạch</div>
+    </div>
+    <div class="kpi glass">
+      <div class="num">100%</div>
+      <div class="lbl">Kiểm soát suy nghĩ</div>
+    </div>
+    <div class="kpi glass">
+      <div class="num">6</div>
+      <div class="lbl">Từ chủ chốt phân tích</div>
+    </div>
+  `;
+}
+
+document.querySelectorAll('.collapse-btn[data-target]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    const isCollapsed = target.classList.toggle('collapsed');
+    btn.textContent = isCollapsed ? '⌃ Mở rộng' : '⌄ Thu gọn';
+  });
+});
+
+renderKPI();
+</script>
+
+</body>
+</html>
