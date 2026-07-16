@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Các Yếu Tố Ảnh Hưởng Đến Sự Tiến Hoá Của Sinh Vật</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .factors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .factor-card {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .factor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.1);
+        }
+        
+        .factor-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .factor-card p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .factor-card ul {
+            margin-left: 20px;
+            color: #666;
+        }
+        
+        .factor-card li {
+            margin-bottom: 8px;
+        }
+        
+        .summary-section {
+            background: #e8f0fe;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border-left: 5px solid #4285f4;
+        }
+        
+        .summary-section h2 {
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        
+        .summary-section p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧬 Các Yếu Tố Ảnh Hưởng Đến Sự Tiến Hoá Của Sinh Vật</h1>
+            <p>Khám phá những lực lượng tự nhiên hình thành các loài</p>
+        </header>
+        
+        <div class="content">
+            <div class="factors-grid">
+                <!-- Factor 1 -->
+                <div class="factor-card">
+                    <div class="icon">🔀</div>
+                    <h3>1. Đột Biến (Mutation)</h3>
+                    <p>Những thay đổi ngẫu nhiên trong vật chất di truyền (DNA) tạo ra sự đa dạng di truyền.</p>
+                    <ul>
+                        <li>Tạo ra biến thể mới</li>
+                        <li>Xảy ra ngẫu nhiên</li>
+                        <li>Nguồn gốc của sự đa dạng</li>
+                    </ul>
+                </div>
+                
+                <!-- Factor 2 -->
+                <div class="factor-card">
+                    <div class="icon">⚔️</div>
+                    <h3>2. Chọn Lọc Tự Nhiên (Natural Selection)</h3>
+                    <p>Quá trình sinh vật có tính trạng thích ứp có cơ hội sống sót và sinh sản cao hơn.</p>
+                    <ul>
+                        <li>Loại bỏ những tính trạng bất lợi</li>
+                        <li>Bảo tồn những tính trạng có lợi</li>
+                        <li>Điều kiện sinh thái quyết định</li>
+                    </ul>
+                </div>
+                
+                <!-- Factor 3 -->
+                <div class="factor-card">
+                    <div class="icon">🎲</div>
+                    <h3>3. Trôi Dạt Di Truyền (Genetic Drift)</h3>
+                    <p>Những thay đổi ngẫu nhiên trong tần số allele do tác động của cơ hội.</p>
+                    <ul>
+                        <li>Ảnh hưởng mạnh mẽ ở quần thể nhỏ</li>
+                        <li>Xảy ra độc lập với chọn lọc</li>
+                        <li>Có thể làm mất tính trạng hữu ích</li>
+                    </ul>
+                </div>
+                
+                <!-- Factor 4 -->
+                <div class="factor-card">
+                    <div class="icon">🌍</div>
+                    <h3>4. Điều Kiện Môi Trường (Environmental Factors)</h3>
+                    <p>Những yếu tố vật lý hóa học ảnh hưởng đến sự sống sót và phát triển.</p>
+                    <ul>
+                        <li>Nhiệt độ, độ ẩm, ánh sáng</li>
+                        <li>Loại thực phẩm có sẵn</li>
+                        <li>Thảm họa thiên nhiên</li>
+                    </ul>
+                </div>
+                
+                <!-- Factor 5 -->
+                <div class="factor-card">
+                    <div class="icon">💑</div>
+                    <h3>5. Chọn Lọc Tình Dục (Sexual Selection)</h3>
+                    <p>Sự lựa chọn bạn tình dựa trên các tính trạng nhất định có thể không liên quan đến sự sống sót.</p>
+                    <ul>
+                        <li>Sắc đẹp và khả năng cạnh tranh</li>
+                        <li>Hành vi và tín hiệu giao tiếp</li>
+                        <li>Ảnh hưởng đến tần số allele</li>
+                    </ul>
+                </div>
+                
+                <!-- Factor 6 -->
+                <div class="factor-card">
+                    <div class="icon">🤝</div>
+                    <h3>6. Lưu Thông Di Truyền (Gene Flow)</h3>
+                    <p>Chuyển động của allele giữa các quần thể thông qua di cư và lai ghép.</p>
+                    <ul>
+                        <li>Giới thiệu allele mới</li>
+                        <li>Tăng đa dạng di truyền</li>
+                        <li>Tạo quần thể lai tạp</li>
+                    </ul>
+                </div>
+                
+                <!-- Factor 7 -->
+                <div class="factor-card">
+                    <div class="icon">🏝️</div>
+                    <h3>7. Cách Ly Địa Lý (Geographic Isolation)</h3>
+                    <p>Sự tách biệt không gian giữa các quần thể dẫn đến sự phân hóa và hình thành loài.</p>
+                    <ul>
+                        <li>Ngăn chặn lưu thông di truyền</li>
+                        <li>Cho phép tiến hoá độc lập</li>
+                        <li>Dẫn đến đa dạng hóa loài</li>
+                    </ul>
+                </div>
+                
+                <!-- Factor 8 -->
+                <div class="factor-card">
+                    <div class="icon">🦠</div>
+                    <h3>8. Áp Lực Sinh Học (Biotic Pressure)</h3>
+                    <p>Tương tác giữa các loài như ăn thịt, cạnh tranh, và ký sinh tạo áp lực tiến hoá.</p>
+                    <ul>
+                        <li>Ăn thịt - mồi</li>
+                        <li>Cạnh tranh cResourced</li>
+                        <li>Ký sinh và bệnh tật</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Summary Section -->
+            <div class="summary-section">
+                <h2>📚 Kết Luận</h2>
+                <p>
+                    Sự tiến hoá của sinh vật là kết quả của sự tương tác phức tạp giữa nhiều yếu tố. 
+                    <strong>Chọn lọc tự nhiên</strong> được coi là cơ chế chính, nhưng các yếu tố khác như 
+                    đột biến, trôi dạt di truyền, và các điều kiện môi trường cũng đóng vai trò quan trọng.
+                </p>
+                <p>
+                    Những yếu tố này hoạt động cùng nhau để tạo ra sự đa dạng sinh học mà chúng ta thấy hôm nay, 
+                    từ các vi khuẩn nhỏ bé đến những loài động vật lớn nhất.
+                </p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2026 | Các Yếu Tố Tiến Hoá | Được tạo bởi GitHub Copilot</p>
+        </footer>
+    </div>
+</body>
+</html>
