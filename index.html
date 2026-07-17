@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đỗ Thìn - Trang chủ</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    color:white;
+    min-height:100vh;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+h1{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+p{
+    text-align:center;
+    color:#d1d5db;
+    margin-bottom:40px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:24px;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    background:rgba(255,255,255,.15);
+}
+
+.card h2{
+    font-size:22px;
+    margin-bottom:12px;
+}
+
+.card p{
+    text-align:left;
+    margin-bottom:20px;
+    color:#ddd;
+}
+
+a.button{
+    display:inline-block;
+    text-decoration:none;
+    background:#22c55e;
+    color:white;
+    padding:12px 22px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.footer{
+    margin-top:60px;
+    text-align:center;
+    color:#bbb;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌐 Đỗ Thìn</h1>
+
+<p>Website cá nhân trên GitHub Pages</p>
+
+<div class="grid">
+
+<div class="card">
+<h2>🕒 Đồng hồ thế giới</h2>
+<p>Đồng hồ số đa múi giờ.</p>
+<a class="button" href="digital-clock.html">Mở</a>
+</div>
+
+<div class="card">
+<h2>🧬 Dashboard tiến hoá</h2>
+<p>Dashboard trực quan về các yếu tố tiến hoá.</p>
+<a class="button" href="evolution-dashboard.html">Mở</a>
+</div>
+
+<div class="card">
+<h2>🌿 Các yếu tố tiến hoá</h2>
+<p>Trang giới thiệu các yếu tố tiến hoá sinh vật.</p>
+<a class="button" href="evolution-factors.html">Mở</a>
+</div>
+
+<div class="card">
+<h2>📖 Newspeak</h2>
+<p>Bài phân tích về Newspeak.</p>
+<a class="button" href="newspeak-analysis.html">Mở</a>
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 • Website được lưu trữ bằng GitHub Pages
+</div>
+
+</div>
+
+</body>
+</html>
