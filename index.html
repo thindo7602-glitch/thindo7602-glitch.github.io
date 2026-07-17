@@ -11,16 +11,14 @@
     
     <style>
         :root {
-            --primary-teal: #0fa48f;
-            --light-teal: #26d0b9;
-            --dark-teal: #0b6659;
-            --bg-gradient: linear-gradient(135deg, #eefcf9 0%, #d2f7f1 100%);
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --text-dark: #1e3a36;
-            --text-muted: #527973;
-            /* Hiệu ứng bóng đổ 3D sâu */
-            --shadow-3d: 0 15px 35px rgba(15, 164, 143, 0.15), 0 5px 15px rgba(0, 0, 0, 0.06);
-            --inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            --primary-jade: #00e6b4; /* Xanh ngọc phát sáng */
+            --body-bg: #0b1110;     /* Nền tối sâu */
+            --card-bg: rgba(16, 26, 24, 0.65); /* Thẻ tối huyền bí */
+            --text-light: #e0f7f4;  /* Chữ sáng */
+            --text-muted: #7da8a1;  /* Chữ mờ */
+            /* Hiệu ứng đổ bóng 3D Neon và viền phát sáng */
+            --shadow-3d: 0 20px 40px rgba(0, 0, 0, 0.5), 0 1px 0px rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 20px rgba(0, 230, 180, 0.2);
         }
 
         * {
@@ -31,67 +29,75 @@
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-dark);
+            background: radial-gradient(circle at 50% 0%, #132924 0%, var(--body-bg) 70%);
+            color: var(--text-light);
             min-height: 100vh;
             padding-bottom: 60px;
+            overflow-x: hidden;
         }
 
-        /* Header Phong Cách 3D Neumorphism & Glassmorphism kết hợp */
+        /* Header Phong Cách Cyber Glassmorphic Tối */
         header {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 50px 20px;
+            background: rgba(11, 17, 16, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 230, 180, 0.15);
+            padding: 60px 20px;
             text-align: center;
             position: relative;
-            box-shadow: 0 10px 30px rgba(15, 164, 143, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Biểu tượng thương hiệu cá nhân 3D giả lập */
+        /* Biểu tượng thương hiệu cá nhân 3D Giả Lập Phát Sáng */
         .avatar-3d {
             width: 85px;
             height: 85px;
-            background: linear-gradient(135deg, var(--light-teal), var(--primary-teal));
+            background: linear-gradient(135deg, #00ffe0, #009e7a);
             border-radius: 24px;
             margin: 0 auto 20px auto;
-            box-shadow: 0 10px 25px rgba(15, 164, 143, 0.4), 
-                        inset 0 -5px 10px rgba(0,0,0,0.2),
+            box-shadow: 0 0 30px rgba(0, 230, 180, 0.5),
+                        inset 0 -5px 10px rgba(0,0,0,0.3),
                         inset 0 5px 10px rgba(255,255,255,0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            transform: perspective(500px) rotateX(10deg);
+            transform: perspective(500px) rotateX(15deg);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: perspective(500px) rotateX(15deg) translateY(0); }
+            50% { transform: perspective(500px) rotateX(15deg) translateY(-8px); }
         }
 
         .avatar-3d svg {
             width: 45px;
             height: 45px;
-            fill: white;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+            fill: #0b1110;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
         header h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.3rem;
+            font-size: 2.5rem;
             font-weight: 800;
-            color: var(--dark-teal);
+            background: linear-gradient(135deg, #ffffff 30%, var(--primary-jade));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
             text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         header p {
             font-size: 1.05rem;
             color: var(--text-muted);
             max-width: 600px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 25px auto;
             font-weight: 500;
         }
 
-        /* KHỐI THÔNG TIN LIÊN HỆ CÁ NHÂN 3D */
+        /* KHỐI THÔNG TIN LIÊN HỆ CÁ NHÂN 3D MƯỚT */
         .contact-container {
             display: flex;
             justify-content: center;
@@ -102,35 +108,37 @@
         }
 
         .contact-item {
-            background: white;
-            padding: 10px 20px;
-            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 12px 24px;
+            border-radius: 16px;
             font-weight: 700;
             font-size: 0.95rem;
-            color: var(--dark-teal);
+            color: var(--text-light);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(15, 164, 143, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.1), 0 10px 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0, 230, 180, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .contact-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(15, 164, 143, 0.2);
-            color: var(--primary-teal);
+            transform: translateY(-4px);
+            background: rgba(0, 230, 180, 0.08);
+            border-color: var(--primary-jade);
+            box-shadow: 0 0 20px rgba(0, 230, 180, 0.3);
+            color: var(--primary-jade);
         }
 
         .contact-item svg {
-            color: var(--primary-teal);
+            color: var(--primary-jade);
         }
 
-        /* Thanh Tìm Kiếm Đổ Khối 3D */
+        /* Thanh Tìm Kiếm Đổ Khối Cyber */
         .utility-bar {
             max-width: 650px;
-            margin: -30px auto 40px auto;
+            margin: -32px auto 50px auto;
             padding: 0 20px;
             position: relative;
             z-index: 10;
@@ -138,39 +146,40 @@
 
         .search-box {
             display: flex;
-            background: #ffffff;
+            background: #14201d;
             padding: 8px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(11, 102, 89, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow-3d), 0 0 30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(0, 230, 180, 0.2);
         }
 
         .search-box input {
             flex: 1;
+            background: transparent;
             border: none;
             padding: 12px 20px;
             font-size: 1rem;
             border-radius: 16px;
             outline: none;
-            color: var(--text-dark);
+            color: var(--text-light);
             font-family: 'Quicksand', sans-serif;
             font-weight: 500;
         }
 
         .search-box input::placeholder {
-            color: #a3c2be;
+            color: #4a6b65;
         }
 
         .search-box .counter-badge {
-            background: linear-gradient(135deg, #e6f9f6, #cbf3ec);
-            color: var(--dark-teal);
-            padding: 0 18px;
+            background: linear-gradient(135deg, #102d27, #0b1f1b);
+            color: var(--primary-jade);
+            padding: 0 20px;
             display: flex;
             align-items: center;
             border-radius: 14px;
             font-size: 0.9rem;
             font-weight: 700;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 230, 180, 0.15);
         }
 
         /* Lưới hiển thị các dự án */
@@ -183,17 +192,17 @@
         .portal-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 30px;
+            gap: 35px;
         }
 
-        /* Thiết kế Thẻ 3D Cao Cấp */
+        /* Thiết kế Thẻ Ngọc Bích 3D Tối Cao Cấp */
         .web-card {
             background: var(--card-bg);
-            border-radius: 24px;
+            border-radius: 28px;
             box-shadow: var(--shadow-3d);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -201,115 +210,119 @@
             overflow: hidden;
         }
 
-        /* Hiệu ứng nâng khối khi rê chuột vào card */
+        /* Hiệu ứng bừng sáng ngọc bích khi di chuột */
         .web-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 45px rgba(15, 164, 143, 0.25);
-            border-color: rgba(38, 208, 185, 0.5);
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 230, 180, 0.15);
+            border-color: rgba(0, 230, 180, 0.3);
+            background: rgba(16, 26, 24, 0.85);
         }
 
         .card-body {
-            padding: 28px;
+            padding: 30px;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
-        /* Icon trang trí nhỏ cho từng thẻ */
+        /* Icon trang trí phát sáng nhạt */
         .card-icon {
-            width: 45px;
-            height: 45px;
-            background: #e6f9f6;
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 230, 180, 0.06);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            color: var(--primary-teal);
+            margin-bottom: 20px;
+            color: var(--primary-jade);
+            border: 1px solid rgba(0, 230, 180, 0.15);
         }
 
         .card-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            color: var(--text-dark);
+            color: #ffffff;
             margin-bottom: 12px;
             line-height: 1.5;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 3rem;
+            height: 3.6rem;
         }
 
         .card-desc {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             flex: 1;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             font-weight: 500;
+            line-height: 1.6;
         }
 
         .card-meta {
             font-size: 0.8rem;
-            color: #7ba49f;
-            padding-top: 15px;
-            border-top: 1px dashed #cbe3e0;
-            margin-bottom: 20px;
+            color: #55827b;
+            padding-top: 18px;
+            border-top: 1px dashed rgba(0, 230, 180, 0.15);
+            margin-bottom: 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* NÚT BẤM DUYỆT 3D ĐẬM CHẤT CÁ NHÂN */
+        /* NÚT BẤM DUYỆT 3D CHUYÊN NGHIỆP PHÁT SÁNG */
         .card-btn {
             display: block;
             text-align: center;
-            background: linear-gradient(135deg, var(--light-teal) 0%, var(--primary-teal) 100%);
-            color: #ffffff;
-            font-weight: 700;
+            background: linear-gradient(135deg, #00ffe0 0%, #00a883 100%);
+            color: #050a09;
+            font-weight: 800;
             text-decoration: none;
-            padding: 14px 20px;
-            border-radius: 16px;
+            padding: 15px 20px;
+            border-radius: 18px;
             font-size: 0.95rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             transition: all 0.2s ease;
             position: relative;
-            /* Đổ khối 3D phía dưới nút */
-            box-shadow: 0 5px 0px var(--dark-teal), 0 8px 15px rgba(15, 164, 143, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* Khối 3D dày dưới chân nút */
+            box-shadow: 0 5px 0px #00664f, 0 10px 20px rgba(0, 230, 180, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Hiệu ứng click/rê chuột lún nút bấm 3D */
+        /* Hiệu ứng nhấn nút lún khối chân thực */
         .card-btn:hover {
-            filter: brightness(1.05);
+            filter: brightness(1.1);
             transform: translateY(2px);
-            box-shadow: 0 3px 0px var(--dark-teal), 0 5px 10px rgba(15, 164, 143, 0.3);
+            box-shadow: 0 3px 0px #00664f, 0 6px 12px rgba(0, 230, 180, 0.2);
         }
 
         .card-btn:active {
             transform: translateY(5px);
-            box-shadow: 0 0px 0px var(--dark-teal), 0 2px 5px rgba(15, 164, 143, 0.2);
+            box-shadow: 0 0px 0px #00664f, 0 2px 5px rgba(0, 230, 180, 0.1);
         }
 
-        /* Màn hình chờ Loading tinh tế */
+        /* Màn hình chờ hiệu ứng mướt */
         .loading-container {
             text-align: center;
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .spinner {
             width: 45px;
             height: 45px;
-            border: 4px solid rgba(15, 164, 143, 0.1);
-            border-top: 4px solid var(--primary-teal);
+            border: 4px solid rgba(0, 230, 180, 0.05);
+            border-top: 4px solid var(--primary-jade);
             border-radius: 50%;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 25px auto;
             animation: spin 1s linear infinite;
+            box-shadow: var(--neon-glow);
         }
 
         @keyframes spin {
@@ -319,7 +332,7 @@
 
         /* Footer */
         footer {
-            margin-top: 80px;
+            margin-top: 100px;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.9rem;
@@ -327,23 +340,22 @@
         }
 
         footer a {
-            color: var(--primary-teal);
+            color: var(--primary-jade);
             text-decoration: none;
             font-weight: 700;
         }
 
         @media (max-width: 600px) {
-            header h1 { font-size: 1.7rem; }
+            header h1 { font-size: 1.8rem; }
             .portal-grid { grid-template-columns: 1fr; }
-            .contact-container { flex-direction: column; align-items: center; gap: 10px; }
+            .contact-container { flex-direction: column; align-items: center; gap: 12px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Cá Nhân Hóa -->
+    <!-- Header Cá Nhân Hóa Đậm Chất Thần Thái Tối -->
     <header>
-        <!-- Khối hộp 3D logo đại diện -->
         <div class="avatar-3d">
             <svg viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -352,7 +364,7 @@
         <h1>CỔNG DỰ ÁN & TIỆN ÍCH</h1>
         <p>Không gian lưu trữ và truy cập nhanh các website, ứng dụng trực tuyến cao cấp.</p>
         
-        <!-- Khối thông tin cá nhân bổ sung -->
+        <!-- Thông tin liên hệ cá nhân -->
         <div class="contact-container">
             <a href="tel:0888819957" class="contact-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -365,11 +377,11 @@
         </div>
     </header>
 
-    <!-- Thanh công cụ tìm kiếm -->
+    <!-- Thanh tìm kiếm -->
     <div class="utility-bar">
         <div class="search-box">
-            <input type="text" id="search-input" placeholder="Tìm kiếm ứng dụng, bài học nhanh..." oninput="filterCards()">
-            <div class="counter-badge" id="counter-badge">Đang kết nối...</div>
+            <input type="text" id="search-input" placeholder="Tìm nhanh ứng dụng, bài học..." oninput="filterCards()">
+            <div class="counter-badge" id="counter-badge">Đang quét...</div>
         </div>
     </div>
 
@@ -377,7 +389,7 @@
     <main>
         <div class="loading-container" id="loading-area">
             <div class="spinner"></div>
-            <p style="color: var(--text-muted); font-weight: 700;">Đang tải danh sách dữ liệu 3D...</p>
+            <p style="color: var(--text-muted); font-weight: 700;">Hệ thống đang đồng bộ dữ liệu ngọc bích 3D...</p>
         </div>
 
         <div class="portal-grid" id="portal-grid" style="display: none;"></div>
@@ -391,7 +403,6 @@
         const GITHUB_USERNAME = "thindo7602-glitch";
         let allPages = [];
 
-        // Tự động tối ưu hóa hiển thị tên bài học/tiện ích thành chữ tiếng Việt có dấu cách
         function formatTitle(name) {
             let title = name.replace(/-/g, ' ');
             title = title.replace('.github.io', ' (Trang Chủ)');
@@ -410,7 +421,7 @@
 
             try {
                 const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`);
-                if (!response.ok) throw new Error("Không lấy được dữ liệu.");
+                if (!response.ok) throw new Error("Không đồng bộ được danh sách.");
 
                 const repos = await response.json();
                 allPages = repos.filter(repo => repo.has_pages);
@@ -420,15 +431,13 @@
                 grid.style.display = 'grid';
 
                 if (allPages.length === 0) {
-                    grid.innerHTML = `<div style="text-align:center; grid-column: 1/-1; padding: 40px; color: var(--text-muted); font-weight:700;">
-                        Chưa có trang trực tuyến nào được bật Pages.
-                    </div>`;
+                    grid.innerHTML = `<div style="text-align:center; grid-column: 1/-1; padding: 40px; color: var(--text-muted); font-weight:700;">Chưa kích hoạt trang trực tuyến nào.</div>`;
                     return;
                 }
 
                 renderCards(allPages);
             } catch (error) {
-                loadingArea.innerHTML = `<p style="color: #d9534f; font-weight:700;">Lỗi đồng bộ: ${error.message}</p>`;
+                loadingArea.innerHTML = `<p style="color: #ff6b6b; font-weight:700;">Lỗi kết nối GitHub API.</p>`;
                 counterBadge.innerText = "Lỗi";
             }
         }
@@ -442,7 +451,7 @@
                 card.className = 'web-card';
                 
                 const title = formatTitle(repo.name);
-                const desc = repo.description || "Ứng dụng trực tuyến thông minh phục vụ công việc và lưu trữ thông tin.";
+                const desc = repo.description || "Ứng dụng trực tuyến phục vụ công tác dạy học và lưu trữ tài nguyên số cá nhân.";
                 const webUrl = `https://${GITHUB_USERNAME}.github.io/${repo.name === GITHUB_USERNAME + '.github.io' ? '' : repo.name}`;
                 const updatedDate = formatDate(repo.updated_at);
 
@@ -455,7 +464,7 @@
                         <div class="card-desc">${desc}</div>
                         <div class="card-meta">
                             <span>📅 Cập nhật: ${updatedDate}</span>
-                            <span style="font-weight:700; color: var(--primary-teal);">WEB</span>
+                            <span style="font-weight:700; color: var(--primary-jade);">SYSTEM</span>
                         </div>
                         <a href="${webUrl}" target="_blank" class="card-btn">MỞ ỨNG DỤNG</a>
                     </div>
