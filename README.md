@@ -1,46 +1,36 @@
 <div align="center">
 
-## 💎 Đỗ Văn Thìn
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:0F172A,100:0B3D2E&height=120&section=header&text=Đỗ%20Văn%20Thìn&fontSize=34&fontColor=7FFFD4&animation=fadeIn"/>
 
-*Primary School Teacher • AI • Education Technology*
+<sub>
+📚 Primary School Teacher &nbsp;•&nbsp; 🤖 AI & Education &nbsp;•&nbsp; 💻 GitHub Pages
+</sub>
 
-<img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=18&duration=3500&pause=1000&color=00D9A3&center=true&vCenter=true&width=500&lines=Education+%7C+AI+%7C+GitHub;Learning+Never+Stops" />
+<br><br>
 
-<br>
-
-<img src="https://img.shields.io/badge/Teacher-Primary-00B894?style=flat-square">
-<img src="https://img.shields.io/badge/AI-Explorer-00C896?style=flat-square">
-<img src="https://img.shields.io/badge/GitHub-Pages-009B77?style=flat-square">
+<img src="https://img.shields.io/badge/Teacher-Primary-0B3D2E?style=flat-square&logo=googleclassroom&logoColor=7FFFD4">
+<img src="https://img.shields.io/badge/AI-Explorer-0B3D2E?style=flat-square&logo=openai&logoColor=7FFFD4">
+<img src="https://img.shields.io/badge/HTML-GitHub-0B3D2E?style=flat-square&logo=github&logoColor=7FFFD4">
 
 </div>
 
 ---
 
-### 👤 Giới thiệu
+### About
 
-- 📚 Giáo viên Tiểu học
-- 💻 Yêu thích AI, GitHub và HTML
-- 🌱 Quan tâm đến công nghệ trong giáo dục
-- 🇻🇳 Việt Nam
+> Giáo viên Tiểu học yêu thích ứng dụng trí tuệ nhân tạo, GitHub và công nghệ vào dạy học.
 
----
+### Focus
 
-### 🛠 Công nghệ
-
-<p>
-<img src="https://skillicons.dev/icons?i=html,css,js,git,github,vscode"/>
-</p>
-
----
-
-### 💬 Châm ngôn
-
-> **"Không ngừng học hỏi, không ngừng đổi mới."**
+- 📖 Giáo dục Tiểu học
+- 🤖 AI trong dạy học
+- 🌐 HTML & GitHub Pages
+- 📊 Dashboard giáo dục
 
 ---
 
 <div align="center">
 
-![](https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=dark&hide_border=true)
+*"Learning • Sharing • Creating"*
 
 </div>
