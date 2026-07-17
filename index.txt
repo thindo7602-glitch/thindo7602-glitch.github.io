@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Tiến Hoá — Các Yếu Tố Tác Động Sinh Vật</title>
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<meta name="x-apple-disable-message-reformatting" content="true">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050f0d;
+    --hatch-color:rgba(180,196,190,0.05);
+    --glass:rgba(19,42,38,0.20);
+    --glass-2:rgba(14,32,29,0.28);
+    --line:rgba(150,240,210,0.16);
+    --line-strong:rgba(150,240,210,0.32);
+
+    --jade-1:#2ad9a8; --jade-2:#8ff2d6; --jade-3:#12886b; --jade-4:#0a4a3c; --jade-5:#062822;
+    --teal:#22b8a4; --mint:#b6f5df; --silver:#c3d4cd;
+
+    --mutation:#ff6b9d;      /* Đột biến */
+    --selection:#ffc107;     /* Chọn lọc */
+    --drift:#00bcd4;         /* Trôi dạt */
+    --environment:#4caf50;   /* Môi trường */
+    --sexual:#e91e63;        /* Tình dục */
+    --geneflow:#9c27b0;      /* Lưu thông */
+    --isolation:#ff9800;     /* Cách ly */
+    --biotic:#f44336;        /* Áp lực sinh học */
+
+    --ink:#e4f7ee; --ink-dim:#9dc2b6; --ink-faint:#5a7a71;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%; background:var(--bg);}
+  #bgFixed{
+    position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-2; pointer-events:none;
+    background-color:var(--bg);
+    background-image:repeating-linear-gradient(135deg,
+      rgba(190,204,198,0.035) 0px, rgba(190,204,198,0.035) 24px,
+      transparent 24px, transparent 45px,
+      rgba(190,204,198,0.017) 45px, rgba(190,204,198,0.017) 69px,
+      transparent 69px, transparent 90px);
+  }
+  #bgGlow{
+    position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(circle 420px at 8% 6%, rgba(255,107,157,0.14), transparent 65%),
+      radial-gradient(circle 380px at 92% 14%, rgba(255,193,7,0.12), transparent 65%),
+      radial-gradient(circle 360px at 85% 78%, rgba(76,175,80,0.11), transparent 65%),
+      radial-gradient(circle 400px at 6% 82%, rgba(156,39,176,0.10), transparent 65%),
+      radial-gradient(circle 420px at 50% 90%, rgba(0,188,212,0.11), transparent 65%),
+      radial-gradient(circle 500px at 50% 45%, rgba(94,200,255,0.06), transparent 70%);
+    filter:blur(6px);
+  }
+  body{background:transparent; color:var(--ink); font-family:'Cormorant Garamond', serif; overflow-x:hidden; scroll-snap-type:y proximity; height:100%;}
+  h1,h2,h3,.display{font-family:Tahoma, 'Segoe UI', Arial, sans-serif; font-weight:700;}
+  .name-title{
+    font-family:'Space Mono', monospace !important;
+    text-transform:uppercase;
+    font-weight:900 !important;
+    font-size:clamp(2.1rem,4.6vw,3.4rem) !important;
+    letter-spacing:.01em;
+    line-height:1.35;
+    padding-top:10px;
+    display:inline-block;
+    transform:scaleX(1.15);
+    transform-origin:left center;
+  }
+  .name-sub{
+    font-size:0.5em;
+    text-transform:none;
+    font-weight:600;
+    letter-spacing:.02em;
+  }
+  .subtitle-box{
+    display:inline-block;
+    margin-top:14px;
+    padding:8px 22px;
+    border:1px solid var(--jade-1);
+    border-radius:8px;
+    background:var(--glass-2);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 0 20px rgba(45,240,160,0.12);
+  }
+  .subtitle-box span{
+    font-family:Tahoma, 'Segoe UI', sans-serif;
+    font-size:1.3rem;
+    font-weight:700;
+    letter-spacing:.03em;
+  }
+  .mono{ font-family:'Space Mono', monospace; }
+  .gold-text{
+    background:linear-gradient(100deg, var(--jade-4) 0%, var(--jade-1) 22%, var(--mint) 40%, var(--silver) 60%, var(--jade-1) 80%, var(--jade-4) 100%);
+    background-size:300% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+    animation:shimmer 9s linear infinite;
+  }
+  @keyframes shimmer{0%{background-position:0% 50%;}100%{background-position:300% 50%;}}
+
+  .pagenav{ position:fixed; right:16px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:11px; z-index:50; }
+  .pagenav a{ width:8px; height:8px; border-radius:50%; border:1px solid var(--jade-1); background:transparent; display:block; transition:all .3s; position:relative; }
+  .pagenav a.active{background:var(--jade-1); box-shadow:0 0 10px rgba(42,217,168,.7);}
+  .pagenav a span{ position:absolute; right:18px; top:-6px; white-space:nowrap; font-family:'Cormorant Garamond',serif; font-size:11.5px; letter-spacing:.1em; color:var(--ink-faint); opacity:0; transition:opacity .3s; text-transform:uppercase; }
+  .pagenav a:hover span{opacity:1;}
+
+  section.screen{ min-height:100vh; scroll-snap-align:start; padding:52px 5vw 36px; display:flex; flex-direction:column; position:relative; border-bottom:1px solid var(--line); }
+  .topbar{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:12px; }
+  .topbar .eyebrow{ font-family:'Space Mono', monospace; letter-spacing:.22em; text-transform:uppercase; font-size:11px; color:var(--jade-1); opacity:.9; }
+  .sec-num{
+    font-family:Tahoma, 'Segoe UI', sans-serif;
+    font-weight:700;
+    margin-right:10px;
+    background:linear-gradient(100deg, var(--jade-4) 0%, var(--jade-1) 22%, var(--mint) 40%, var(--silver) 60%, var(--jade-1) 80%, var(--jade-4) 100%);
+    background-size:300% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+    animation:shimmer 9s linear infinite;
+  }
+  .sub-num{ color:var(--jade-1); font-family:'Space Mono',monospace; font-weight:700; margin-right:8px; font-size:0.9em; }
+  .topbar-right{ display:flex; align-items:center; gap:10px; }
+  .collapse-btn{ font-family:'Space Mono', monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--jade-1); background:var(--glass-2); backdrop-filter:blur(8px); border:1px solid var(--jade-3); border-radius:16px; padding:6px 14px; cursor:pointer; transition:all .2s; white-space:nowrap; }
+  .collapse-btn:hover{ background:rgba(42,217,168,.14); }
+  .id-row{ display:flex; flex-wrap:wrap; gap:8px 12px; margin-top:16px; }
+  .id-chip{ font-family:'Space Mono', monospace; font-size:11.5px; color:var(--ink-dim); background:var(--glass-2); border:1px solid var(--line); border-radius:14px; padding:6px 13px; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); white-space:nowrap; }
+  .id-chip b{ color:var(--jade-1); font-weight:700; margin-right:7px; letter-spacing:.03em; }
+  .screen.collapsed{ min-height:0 !important; padding-bottom:24px; }
+  .screen.collapsed > *:not(.topbar){ display:none !important; }
+  .topbar h1{ font-size:clamp(1.5rem,3vw,2.3rem); margin:6px 0 0; font-family:'Space Mono', monospace; }
+  .pageflag{ font-family:'Space Mono', monospace; font-size:12px; color:var(--ink-faint); letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--line); background:var(--glass); backdrop-filter:blur(10px); padding:6px 14px; border-radius:20px; align-self:flex-end; }
+  .pageflag b{color:var(--jade-1); font-weight:700;}
+
+  .glass{ background:var(--glass); backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%); border:1px solid var(--line); border-radius:6px; box-shadow:0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; }
+  .glass::before{ content:''; position:absolute; inset:0; border-radius:6px; background:linear-gradient(160deg, rgba(255,255,255,0.05), transparent 40%); pointer-events:none; }
+
+  .kpi-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:26px; }
+  @media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
+  .kpi{ padding:18px 20px; border-left:2px solid var(--jade-1); }
+  .kpi .num{ font-family:'Space Mono', monospace; font-size:1.8rem; font-weight:700; color:var(--jade-1); position:relative; z-index:1;}
+  .kpi .lbl{ font-family:'Cormorant Garamond',serif; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); margin-top:6px; position:relative; z-index:1; }
+
+  .factor-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin-bottom:26px; flex:1; }
+  @media(max-width:900px){.factor-grid{grid-template-columns:1fr;}}
+  .factor-card{ padding:24px; border-left:3px solid; border-radius:8px; }
+  .factor-card h3{ font-size:1.15rem; margin:0 0 12px; color:var(--mint); font-family:Tahoma, 'Segoe UI', sans-serif; font-weight:700; display:flex; align-items:center; gap:12px; }
+  .factor-card .icon{ font-size:2rem; }
+  .factor-card p{ color:var(--ink-dim); font-size:15px; margin:0 0 12px; line-height:1.5; }
+  .factor-card ul{ margin:0 0 0 20px; padding:0; color:var(--ink-faint); font-size:14px; }
+  .factor-card li{ margin-bottom:8px; line-height:1.4; }
+  .factor-card strong{ color:var(--ink); font-weight:600; }
+
+  .chart-row{ display:grid; grid-template-columns:1fr 1.4fr; gap:22px; flex:1; }
+  @media(max-width:900px){.chart-row{grid-template-columns:1fr; }}
+  .panel{ padding:22px 24px; display:flex; flex-direction:column; }
+  .panel h3{ font-size:1.02rem; margin:0 0 16px; color:var(--jade-2); font-weight:600; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; position:relative; z-index:1; font-family:Tahoma, 'Segoe UI', sans-serif; }
+  .panel h3 .tag{ font-family:'Space Mono', monospace; font-size:10.5px; letter-spacing:.08em; color:var(--ink-faint); text-transform:uppercase; font-weight:400; }
+
+  .donut-wrap{ display:flex; align-items:center; gap:26px; flex:1; position:relative; z-index:1; }
+  .donut{ width:160px; height:160px; border-radius:50%; flex-shrink:0; position:relative; box-shadow:0 0 34px rgba(45,240,160,0.18), 0 0 50px rgba(255,200,98,0.08); transition:filter .3s; }
+  .donut::after{ content:''; position:absolute; inset:24px; border-radius:50%; background:var(--jade-5); backdrop-filter:blur(4px); }
+  .donut-center{ position:absolute; inset:24px; display:flex; align-items:center; justify-content:center; flex-direction:column; z-index:2; }
+  .donut-center .n{ font-family:'Space Mono', monospace; font-size:1.4rem; font-weight:700; color:var(--jade-1); }
+  .donut-center .t{ font-family:'Cormorant Garamond',serif; font-size:10.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em; }
+  .legend{ display:flex; flex-direction:column; gap:10px; font-family:'Cormorant Garamond',serif; font-size:14px; }
+  .legend li{list-style:none; display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--ink-dim);}
+  .legend .sw{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px;}
+  .legend b{color:var(--ink); font-weight:600; font-family:'Space Mono',monospace;}
+
+  .matrix-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px; flex:1; }
+  @media(max-width:900px){.matrix-grid{grid-template-columns:repeat(2,1fr);}}
+  .matrix-cell{ padding:16px; text-align:center; border-radius:6px; display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:120px; }
+  .matrix-icon{ font-size:2.4rem; margin-bottom:10px; }
+  .matrix-name{ font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); margin-bottom:6px; font-weight:700; }
+  .matrix-desc{ font-family:'Cormorant Garamond',serif; font-size:13px; color:var(--ink-dim); line-height:1.3; }
+
+  .comparison-table{ width:100%; border-collapse:collapse; margin-top:16px; font-family:'Cormorant Garamond',serif; }
+  .comparison-table th{ background:var(--glass-2); padding:12px; text-align:left; font-size:13px; color:var(--jade-1); font-weight:700; border-bottom:2px solid var(--line); }
+  .comparison-table td{ padding:12px; border-bottom:1px solid var(--line); font-size:14px; color:var(--ink-dim); }
+  .comparison-table tr:hover{ background:rgba(42,217,168,0.08); }
+  .comparison-table .factor-name{ color:var(--ink); font-weight:600; font-family:'Space Mono',monospace; font-size:12px; }
+  .comparison-table .factor-score{ font-family:'Space Mono',monospace; font-weight:700; }
+
+  .impact-row{ display:grid; grid-template-columns:180px 1fr; gap:16px; margin-bottom:16px; align-items:start; }
+  .impact-label{ font-family:'Space Mono',monospace; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--jade-1); }
+  .impact-bar{ height:24px; border-radius:4px; position:relative; display:flex; align-items:center; justify-content:center; }
+  .impact-bar .pct{ font-family:'Space Mono',monospace; font-size:10px; color:white; font-weight:700; z-index:2; }
+
+  footer{ text-align:center; padding:32px 0 20px; font-family:'Space Mono', monospace; color:var(--ink-faint); font-size:11px; letter-spacing:.05em; }
+  .footer-name{
+    font-family:Tahoma, 'Segoe UI', Arial, sans-serif;
+    font-weight:800;
+    font-size:clamp(1.6rem,3vw,2.2rem);
+    letter-spacing:.02em;
+    margin-bottom:10px;
+  }
+  .footer-credit{ font-family:'Space Mono', monospace; color:var(--ink-faint); font-size:11px; letter-spacing:.05em; }
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+</style>
+</head>
+<body>
+
+<div id="bgFixed"></div>
+<div id="bgGlow"></div>
+
+<!-- ============ SCREEN 1 — TỔNG QUAN ============ -->
+<section class="screen" id="s1">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Các yếu tố ảnh hưởng đến sự tiến hoá sinh vật</div>
+      <h1 class="gold-text name-title">Evolution</h1>
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:14px;">
+        <div class="subtitle-box" style="margin-top:0;"><span class="gold-text">Tổng quan</span></div>
+        <button class="collapse-btn" id="collapseAllBtn">⌄ Thu gọn tất cả</button>
+      </div>
+      <div class="id-row">
+        <div class="id-chip"><b>Yếu tố chính</b>8 cơ chế</div>
+        <div class="id-chip"><b>Thời gian</b>Triệu năm</div>
+        <div class="id-chip"><b>Quy mô ảnh hưởng</b>Toàn cầu</div>
+        <div class="id-chip"><b>Tương tác</b>Kết hợp phức tạp</div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
+      <div class="pageflag">Trang <b>01</b> / 03</div>
+    </div>
+  </div>
+
+  <div class="kpi-row" id="kpiRow"></div>
+
+  <div class="chart-row">
+    <div class="panel glass">
+      <h3>Phân loại theo loại cơ chế <span class="tag mono">n = 8</span></h3>
+      <div class="donut-wrap">
+        <div class="donut" id="donutEl"><div class="donut-center"><div class="n" id="donutN">—</div><div class="t">Yếu tố</div></div></div>
+        <ul class="legend" id="legendEl"></ul>
+      </div>
+    </div>
+    <div class="panel glass">
+      <h3>Mức độ ảnh hưởng tương đối <span class="tag">Căn cứ trên tầm quan trọng</span></h3>
+      <div id="impactChart"></div>
+    </div>
+  </div>
+
+  <div class="mono" style="font-weight:700; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--jade-1); margin:30px 0 4px;">8 Yếu tố Chính</div>
+  <div class="matrix-grid" id="factorMatrix"></div>
+</section>
+
+<!-- ============ SCREEN 2 — CHI TIẾT CÁC YẾU TỐ ============ -->
+<section class="screen" id="s2">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Phân tích chi tiết từng cơ chế tiến hoá</div>
+      <h1 class="gold-text"><span class="sec-num">I.</span>Tám yếu tố tiến hoá chi tiết</h1>
+    </div>
+    <div class="topbar-right">
+      <div class="pageflag">Trang <b>02</b> / 03</div>
+      <button class="collapse-btn" data-target="s2">⌄ Thu gọn</button>
+    </div>
+  </div>
+
+  <div class="factor-grid" id="factorList"></div>
+</section>
+
+<!-- ============ SCREEN 3 — SO SÁNH VÀ TÍN HIỆU ============ -->
+<section class="screen" id="s3">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Bảng so sánh và tương tác giữa các yếu tố</div>
+      <h1 class="gold-text"><span class="sec-num">II.</span>Phân tích so sánh</h1>
+    </div>
+    <div class="topbar-right">
+      <div class="pageflag">Trang <b>03</b> / 03</div>
+      <button class="collapse-btn" data-target="s3">⌄ Thu gọn</button>
+    </div>
+  </div>
+
+  <div class="panel glass" style="margin-bottom:22px;">
+    <h3><span class="sub-num">1.</span>Bảng so sánh 8 yếu tố tiến hoá</h3>
+    <table class="comparison-table" id="comparisonTable"></table>
+  </div>
+
+  <div class="panel glass" style="flex:1;">
+    <h3><span class="sub-num">2.</span>Tóm tắt khoa học &amp; ứng dụng thực tiễn</h3>
+    <div id="summaryContent" style="display:flex; flex-direction:column; gap:16px; position:relative; z-index:1;"></div>
+  </div>
+</section>
+
+<footer id="docFooter">
+  <div class="footer-name gold-text">Evolution Theory</div>
+  <div class="footer-credit">DASHBOARD TIẾN HOÁ · TỔNG QUAN 8 YẾU TỐ CHÍNH TÁC ĐỘNG ĐẾN SỰ TIẾN HOÁ CỦA SINH VẬT · 2026</div>
+  <button class="collapse-btn" style="margin-top:16px;" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">↑ Lên đầu tài liệu</button>
+</footer>
+
+<script>
+/* ===================== DỮ LIỆU GỐC ===================== */
+const factors = [
+  {
+    id: 1,
+    name: "Đột Biến",
+    eng: "Mutation",
+    icon: "🔀",
+    color: "#ff6b9d",
+    impact: 85,
+    description: "Những thay đổi ngẫu nhiên trong vật chất di truyền (DNA) tạo ra sự đa dạng di truyền.",
+    details: [
+      "Tạo ra biến thể mới từ DNA",
+      "Xảy ra ngẫu nhiên và độc lập",
+      "Nguồn gốc của sự đa dạng gen",
+      "Có thể có lợi hoặc bất lợi"
+    ],
+    importance: "Cực cao",
+    timeScale: "Hằng liên tục",
+    populationSize: "Không bị ảnh hưởng"
+  },
+  {
+    id: 2,
+    name: "Chọn Lọc Tự Nhiên",
+    eng: "Natural Selection",
+    icon: "⚔️",
+    color: "#ffc107",
+    impact: 100,
+    description: "Quá trình sinh vật có tính trạng thích ứp có cơ hội sống sót và sinh sản cao hơn.",
+    details: [
+      "Loại bỏ những tính trạng bất lợi",
+      "Bảo tồn những tính trạng có lợi",
+      "Điều kiện sinh thái quyết định",
+      "Cơ chế chính của tiến hoá"
+    ],
+    importance: "Cực kỳ cực cao",
+    timeScale: "Nhiều thế hệ",
+    populationSize: "Tất cả kích thước"
+  },
+  {
+    id: 3,
+    name: "Trôi Dạt Di Truyền",
+    eng: "Genetic Drift",
+    icon: "🎲",
+    color: "#00bcd4",
+    impact: 65,
+    description: "Những thay đổi ngẫu nhiên trong tần số allele do tác động của cơ hội.",
+    details: [
+      "Ảnh hưởng mạnh mẽ ở quần thể nhỏ",
+      "Xảy ra độc lập với chọn lọc",
+      "Có thể làm mất tính trạng hữu ích",
+      "Hiệu ứng chai cổ"
+    ],
+    importance: "Cao",
+    timeScale: "Thay đổi nhanh",
+    populationSize: "Quần thể nhỏ"
+  },
+  {
+    id: 4,
+    name: "Điều Kiện Môi Trường",
+    eng: "Environmental Factors",
+    icon: "🌍",
+    color: "#4caf50",
+    impact: 90,
+    description: "Những yếu tố vật lý hóa học ảnh hưởng đến sự sống sót và phát triển.",
+    details: [
+      "Nhiệt độ, độ ẩm, ánh sáng",
+      "Loại thực phẩm có sẵn",
+      "Thảm họa thiên nhiên",
+      "Ô nhiễm môi trường"
+    ],
+    importance: "Cực cao",
+    timeScale: "Tức thì đến dài hạn",
+    populationSize: "Tất cả"
+  },
+  {
+    id: 5,
+    name: "Chọn Lọc Tình Dục",
+    eng: "Sexual Selection",
+    icon: "💑",
+    color: "#e91e63",
+    impact: 75,
+    description: "Sự lựa chọn bạn tình dựa trên các tính trạng nhất định có thể không liên quan đến sự sống sót.",
+    details: [
+      "Sắc đẹp và khả năng cạnh tranh",
+      "Hành vi và tín hiệu giao tiếp",
+      "Ảnh hưởng đến tần số allele",
+      "Ví dụ: lông đuôi công"
+    ],
+    importance: "Cao",
+    timeScale: "Nhiều thế hệ",
+    populationSize: "Quần thể có cấu trúc"
+  },
+  {
+    id: 6,
+    name: "Lưu Thông Di Truyền",
+    eng: "Gene Flow",
+    icon: "🤝",
+    color: "#9c27b0",
+    impact: 70,
+    description: "Chuyển động của allele giữa các quần thể thông qua di cư và lai ghép.",
+    details: [
+      "Giới thiệu allele mới",
+      "Tăng đa dạng di truyền",
+      "Tạo quần thể lai tạp",
+      "Ngăn cách ly địa lý"
+    ],
+    importance: "Trung bình đến cao",
+    timeScale: "Tương đối nhanh",
+    populationSize: "Quần thể được nối kết"
+  },
+  {
+    id: 7,
+    name: "Cách Ly Địa Lý",
+    eng: "Geographic Isolation",
+    icon: "🏝️",
+    color: "#ff9800",
+    impact: 80,
+    description: "Sự tách biệt không gian giữa các quần thể dẫn đến sự phân hóa và hình thành loài.",
+    details: [
+      "Ngăn chặn lưu thông di truyền",
+      "Cho phép tiến hoá độc lập",
+      "Dẫn đến đa dạng hóa loài",
+      "Quá trình speciation"
+    ],
+    importance: "Cao",
+    timeScale: "Rất lâu",
+    populationSize: "Quần thể tách biệt"
+  },
+  {
+    id: 8,
+    name: "Áp Lực Sinh Học",
+    eng: "Biotic Pressure",
+    icon: "🦠",
+    color: "#f44336",
+    impact: 88,
+    description: "Tương tác giữa các loài như ăn thịt, cạnh tranh, và ký sinh tạo áp lực tiến hoá.",
+    details: [
+      "Ăn thịt - mồi",
+      "Cạnh tranh tài nguyên",
+      "Ký sinh và bệnh tật",
+      "Hợp tác và kỹ sinh"
+    ],
+    importance: "Cực cao",
+    timeScale: "Thay đổi sinh thái",
+    populationSize: "Tất cả"
+  }
+];
+
+const colors = factors.map(f => f.color);
+
+/* ===================== HÀM TIỆN ÍCH ===================== */
+function renderKPI(){
+  document.getElementById('kpiRow').innerHTML = `
+    <div class="kpi glass" style="border-left-color:#ff6b9d;"><div class="num" style="color:#ff6b9d;">8</div><div class="lbl">Yếu tố chính</div></div>
+    <div class="kpi glass" style="border-left-color:#ffc107;"><div class="num" style="color:#ffc107;">∞</div><div class="lbl">Thời gian tác dụng</div></div>
+    <div class="kpi glass" style="border-left-color:#4caf50;"><div class="num" style="color:#4caf50;">100%</div><div class="lbl">Sinh vật bị ảnh hưởng</div></div>
+    <div class="kpi glass" style="border-left-color:#00bcd4;"><div class="num" style="color:#00bcd4;">⚙</div><div class="lbl">Tương tác kết hợp</div></div>
+  `;
+}
+
+function renderDonut(){
+  const total = factors.length;
+  let acc = 0;
+  const stops = [];
+  factors.forEach(f => {
+    const deg = 360 / total;
+    stops.push(`${f.color} ${acc.toFixed(1)}deg ${(acc+deg).toFixed(1)}deg`);
+    acc += deg;
+  });
+  document.getElementById('donutEl').style.background = `conic-gradient(${stops.join(',')})`;
+  document.getElementById('donutN').textContent = total;
+  document.getElementById('legendEl').innerHTML = factors.map(f =>
+    `<li><span><span class="sw" style="background:${f.color}"></span>${f.name}</span><b>${f.impact}%</b></li>`
+  ).join('');
+}
+
+function renderImpactChart(){
+  const sorted = [...factors].sort((a,b) => b.impact - a.impact);
+  document.getElementById('impactChart').innerHTML = sorted.map(f => `
+    <div class="impact-row">
+      <div class="impact-label">${f.name}</div>
+      <div class="impact-bar" style="background:linear-gradient(90deg, ${f.color}, ${f.color}44); width:${f.impact}%; min-width:100px;">
+        <span class="pct">${f.impact}%</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderMatrix(){
+  document.getElementById('factorMatrix').innerHTML = factors.map(f => `
+    <div class="matrix-cell glass" style="border-left:3px solid ${f.color};">
+      <div class="matrix-icon">${f.icon}</div>
+      <div class="matrix-name">${f.name}</div>
+      <div class="matrix-desc">${f.description.substring(0,40)}...</div>
+    </div>
+  `).join('');
+}
+
+function renderFactorList(){
+  document.getElementById('factorList').innerHTML = factors.map(f => `
+    <div class="panel glass" style="border-left:4px solid ${f.color};">
+      <h3><span class="sub-num">${f.id}.</span>${f.icon} ${f.name} <span style="font-family:'Space Mono',monospace; font-size:10px; font-weight:400; color:var(--ink-faint);">${f.eng}</span></h3>
+      <p style="color:var(--ink-dim); font-size:15px; margin:0 0 12px; line-height:1.5;">${f.description}</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; font-size:13px;">
+        <div style="background:var(--glass-2); padding:10px; border-radius:4px; border-left:2px solid ${f.color};">
+          <div style="color:var(--ink-faint); font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;">Tầm quan trọng</div>
+          <div style="color:var(--ink); font-weight:700;">${f.importance}</div>
+        </div>
+        <div style="background:var(--glass-2); padding:10px; border-radius:4px; border-left:2px solid ${f.color};">
+          <div style="color:var(--ink-faint); font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;">Thang thời gian</div>
+          <div style="color:var(--ink); font-weight:700;">${f.timeScale}</div>
+        </div>
+      </div>
+      <ul style="margin:0 0 0 20px; padding:0; color:var(--ink-faint); font-size:14px; list-style:none;">
+        ${f.details.map(d => `<li style="margin-bottom:6px; padding-left:8px;">• ${d}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+}
+
+function renderComparison(){
+  const headers = ['Yếu tố', 'Loại', 'Mức độ ảnh hưởng', 'Quy mô quần thể', 'Thang thời gian'];
+  const types = ['Đột biến ngẫu nhiên', 'Chọn lọc', 'Ngẫu nhiên', 'Môi trường', 'Chọn lọc', 'Dòng gen', 'Địa lý', 'Sinh học'];
+  
+  let html = '<thead><tr>';
+  headers.forEach(h => html += `<th>${h}</th>`);
+  html += '</tr></thead><tbody>';
+  
+  factors.forEach((f, i) => {
+    html += `<tr>
+      <td><span class="factor-name" style="color:${f.color};">${f.name}</span></td>
+      <td>${types[i]}</td>
+      <td><span class="factor-score">${f.impact}%</span></td>
+      <td>${f.populationSize}</td>
+      <td>${f.timeScale}</td>
+    </tr>`;
+  });
+  
+  html += '</tbody>';
+  document.getElementById('comparisonTable').innerHTML = html;
+}
+
+function renderSummary(){
+  const summary = [
+    {title: "🎯 Kết luận chính", content: "Sự tiến hoá của sinh vật là kết quả của sự tương tác phức tạp giữa nhiều yếu tố. Chọn lọc tự nhiên được coi là cơ chế chính, nhưng các yếu tố khác như đột biến, trôi dạt di truyền, và các điều kiện môi trường cũng đóng vai trò quan trọng."},
+    {title: "⚡ Tương tác giữa các yếu tố", content: "Các yếu tố này không hoạt động độc lập. Chẳng hạn, đột biến cung cấp sự đa dạng, chọn lọc tự nhiên chọn ra những đột biến có lợi, và lưu thông di truyền truyền những gen được chọn lọc đó sang các quần thể khác."},
+    {title: "🔬 Ứng dụng thực tiễn", content: "Hiểu biết về các yếu tố tiến hoá giúp chúng ta dự đoán sự thích ứng của loài với biến đổi khí hậu, phát triển thuốc chống lại các vi khuẩn có khả năng kháng thuốc, và bảo tồn đa dạng sinh học."},
+    {title: "📊 Thang thời gian", content: "Sự tiến hoá xảy ra ở các thang thời gian khác nhau. Trong khi đột biến xảy ra hằng liên tục, sự hình thành loài mới (speciation) có thể mất hàng triệu năm. Trôi dạt di truyền có thể có tác động nhanh chóng ở quần thể nhỏ."}
+  ];
+  
+  document.getElementById('summaryContent').innerHTML = summary.map(s => `
+    <div style="background:var(--glass-2); padding:16px; border-radius:6px; border-left:3px solid var(--jade-1);">
+      <div style="font-family:'Space Mono',monospace; font-weight:700; color:var(--jade-1); margin-bottom:8px; font-size:13px;">${s.title}</div>
+      <div style="color:var(--ink-dim); font-size:14px; line-height:1.6;">${s.content}</div>
+    </div>
+  `).join('');
+}
+
+/* ===================== KHỞI TẠO ===================== */
+renderKPI();
+renderDonut();
+renderImpactChart();
+renderMatrix();
+renderFactorList();
+renderComparison();
+renderSummary();
+
+// Page nav active state on scroll
+const screens = document.querySelectorAll('.screen');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if(en.isIntersecting){
+      document.querySelectorAll('.pagenav a').forEach(l => 
+        l.classList.toggle('active', l.dataset.target === en.target.id)
+      );
+    }
+  });
+}, {threshold:0.5});
+screens.forEach(s => navObserver.observe(s));
+
+// Collapse functionality
+document.querySelectorAll('.collapse-btn[data-target]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    const isCollapsed = target.classList.toggle('collapsed');
+    btn.textContent = isCollapsed ? '⌃ Mở rộng' : '⌄ Thu gọn';
+  });
+});
+
+const collapseAllBtn = document.getElementById('collapseAllBtn');
+collapseAllBtn.addEventListener('click', () => {
+  const shouldCollapse = collapseAllBtn.textContent.includes('Thu gọn');
+  document.querySelectorAll('.collapse-btn[data-target]').forEach(btn => {
+    const target = document.getElementById(btn.dataset.target);
+    target.classList.toggle('collapsed', shouldCollapse);
+    btn.textContent = shouldCollapse ? '⌃ Mở rộng' : '⌄ Thu gọn';
+  });
+  collapseAllBtn.textContent = shouldCollapse ? '⌃ Mở rộng tất cả' : '⌄ Thu gọn tất cả';
+});
+</script>
+
+</body>
+</html>
