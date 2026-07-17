@@ -1,131 +1,471 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đỗ Thìn - Trang chủ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đỗ Văn Thìn - 3D Hologram Web Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #060913;
+            overflow-x: hidden;
+        }
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        /* Shimmering & 3D Glowing effects */
+        .neon-glow-emerald {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+        }
+        
+        .glass-panel {
+            background: rgba(10, 15, 30, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#0f172a,#1e3a8a);
-    color:white;
-    min-height:100vh;
-}
+        .gradient-text-3d {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 8px rgba(16, 185, 129, 0.3));
+        }
 
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:40px 20px;
-}
+        /* Custom Animated Background Grid */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
 
-h1{
-    text-align:center;
-    font-size:42px;
-    margin-bottom:10px;
-}
+        /* 3D tilt card styles */
+        .tilt-card {
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
 
-p{
-    text-align:center;
-    color:#d1d5db;
-    margin-bottom:40px;
-}
+        .tilt-inner {
+            transform: translateZ(30px);
+        }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:rgba(255,255,255,.08);
-    border-radius:18px;
-    padding:24px;
-    transition:.25s;
-}
-
-.card:hover{
-    transform:translateY(-6px);
-    background:rgba(255,255,255,.15);
-}
-
-.card h2{
-    font-size:22px;
-    margin-bottom:12px;
-}
-
-.card p{
-    text-align:left;
-    margin-bottom:20px;
-    color:#ddd;
-}
-
-a.button{
-    display:inline-block;
-    text-decoration:none;
-    background:#22c55e;
-    color:white;
-    padding:12px 22px;
-    border-radius:10px;
-    font-weight:bold;
-}
-
-.footer{
-    margin-top:60px;
-    text-align:center;
-    color:#bbb;
-}
-</style>
-
+        /* Shimmering ambient lights */
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+        }
+        .ambient-light-1 {
+            animation: orbit 25s infinite linear;
+        }
+    </style>
 </head>
+<body class="text-slate-200 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-slate-950 bg-grid relative">
 
-<body>
+    <!-- 3D Background Lighting -->
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full filter blur-[120px] pointer-events-none ambient-light-1"></div>
+    <div class="absolute bottom-10 right-1/4 w-[400px] h-[400px] bg-blue-600/10 rounded-full filter blur-[150px] pointer-events-none"></div>
 
-<div class="container">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="relative group">
+                    <div class="absolute -inset-1.5 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-xl blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative bg-slate-950 text-emerald-400 p-2.5 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-cube text-2xl animate-spin" style="animation-duration: 8s;"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                        3D Portal <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">v2.0</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Không gian quản trị & tương tác 3D đa chiều</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Button to Open Add Modal -->
+                <button onclick="toggleModal(true)" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 text-xs font-bold px-4 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]">
+                    <i class="fa-solid fa-plus"></i> Thêm Trang Web
+                </button>
+                <a href="https://github.com/thindo7602-glitch" target="_blank" 
+                   class="bg-slate-900/90 hover:bg-slate-850 text-xs px-4 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 border border-slate-800 hover:border-slate-700 text-slate-300">
+                    <i class="fab fa-github text-sm"></i> @thindo7602-glitch
+                </a>
+            </div>
+        </div>
+    </header>
 
-<h1>🌐 Đỗ Thìn</h1>
+    <!-- HERO SECTION -->
+    <section class="relative py-12 text-center max-w-4xl mx-auto px-6">
+        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 text-emerald-400 border border-emerald-500/20 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 shadow-[0_0_15px_rgba(16,185,129,0.05)]">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            Hệ Thống Trực Quan Hoá Đa Chiều
+        </div>
+        <h2 class="text-4xl sm:text-5xl font-black text-white tracking-tight mb-5 leading-tight">
+            Quản Lý Website Hệ Thống <br><span class="gradient-text-3d">Giao Diện Hologram 3D</span>
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+            Giao diện 3D hỗ trợ hiệu ứng nghiêng (tilt) tương tác thời gian thực. Bạn có thể dễ dàng dán liên kết web mới để tích hợp trực tiếp vào hệ thống cơ sở dữ liệu của Portal.
+        </p>
+    </section>
 
-<p>Website cá nhân trên GitHub Pages</p>
+    <!-- MAIN DASHBOARD -->
+    <main class="container mx-auto px-6 py-4 flex-grow max-w-6xl">
+        
+        <!-- Interactive Tool Bar -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-10">
+            <!-- Search bar -->
+            <div class="relative w-full md:max-w-md">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                    <i class="fa fa-search text-slate-500 text-sm"></i>
+                </span>
+                <input type="text" id="search-input" 
+                       class="w-full pl-10 pr-4 py-3 bg-slate-950/60 border border-slate-800/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 text-sm text-slate-200 placeholder-slate-500 transition-all" 
+                       placeholder="Tìm kiếm dự án, nhãn tag hoặc phân mục...">
+            </div>
 
-<div class="grid">
+            <!-- Stats & Quick Reset -->
+            <div class="flex items-center gap-4">
+                <button onclick="resetToDefault()" class="text-xs text-slate-500 hover:text-emerald-400 transition-colors flex items-center gap-1.5 bg-slate-950/40 border border-slate-900 px-3.5 py-2.5 rounded-xl">
+                    <i class="fa-solid fa-rotate-left"></i> Khôi phục mặc định
+                </button>
+                <div class="flex items-center gap-4 text-xs font-medium text-slate-400 bg-slate-950/40 px-4 py-2.5 rounded-xl border border-slate-800/60">
+                    <span>Hệ thống: <strong id="total-count" class="text-emerald-400 font-bold">0</strong> web</span>
+                </div>
+            </div>
+        </div>
 
-<div class="card">
-<h2>🕒 Đồng hồ thế giới</h2>
-<p>Đồng hồ số đa múi giờ.</p>
-<a class="button" href="digital-clock.html">Mở</a>
-</div>
+        <!-- 3D CARDS GRID -->
+        <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Web cards dynamic render -->
+        </div>
 
-<div class="card">
-<h2>🧬 Dashboard tiến hoá</h2>
-<p>Dashboard trực quan về các yếu tố tiến hoá.</p>
-<a class="button" href="evolution-dashboard.html">Mở</a>
-</div>
+    </main>
 
-<div class="card">
-<h2>🌿 Các yếu tố tiến hoá</h2>
-<p>Trang giới thiệu các yếu tố tiến hoá sinh vật.</p>
-<a class="button" href="evolution-factors.html">Mở</a>
-</div>
+    <!-- MODAL: ADD NEW WEBSITE -->
+    <div id="add-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+        <div class="glass-panel w-full max-w-md rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.15)] border border-slate-800/80 transform scale-95 transition-transform duration-300">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-slate-950 to-slate-900 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-circle-plus text-emerald-400"></i> Thêm Website Mới
+                </h3>
+                <button onclick="toggleModal(false)" class="text-slate-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body / Form -->
+            <form id="add-project-form" class="p-6 space-y-4" onsubmit="addNewProject(event)">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Liên kết Web (URL)</label>
+                    <input type="url" id="web-url" required
+                           class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/40 text-sm text-slate-200 placeholder-slate-600"
+                           placeholder="https://thindo7602-glitch.github.io/ten-trang.html">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Tiêu đề Trang Web</label>
+                    <input type="text" id="web-title" required
+                           class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/40 text-sm text-slate-200 placeholder-slate-600"
+                           placeholder="Ví dụ: Trang Trắc Nghiệm Toán 5">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Mô tả Ngắn Gọn</label>
+                    <textarea id="web-desc" rows="2" required
+                              class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/40 text-sm text-slate-200 placeholder-slate-600 resize-none"
+                              placeholder="Mô tả tính năng hoặc nhiệm vụ học tập của trang..."></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Phân mục</label>
+                        <select id="web-category" 
+                                class="w-full px-3 py-2.5 bg-slate-900 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/40 text-sm text-slate-200">
+                            <option value="Công cụ">Công cụ</option>
+                            <option value="Hệ thống">Hệ thống</option>
+                            <option value="Giảng dạy">Giảng dạy</option>
+                            <option value="Ngôn ngữ">Ngôn ngữ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Nhãn tag (Cách nhau bằng dấu phẩy)</label>
+                        <input type="text" id="web-tags"
+                               class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/40 text-sm text-slate-200 placeholder-slate-600"
+                               placeholder="HTML, JS, Logic">
+                    </div>
+                </div>
 
-<div class="card">
-<h2>📖 Newspeak</h2>
-<p>Bài phân tích về Newspeak.</p>
-<a class="button" href="newspeak-analysis.html">Mở</a>
-</div>
+                <!-- Action buttons -->
+                <div class="pt-4 border-t border-slate-800/80 flex justify-end gap-3">
+                    <button type="button" onclick="toggleModal(false)" 
+                            class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-xs font-bold text-slate-300 transition-colors">
+                        Hủy bỏ
+                    </button>
+                    <button type="submit" 
+                            class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/20">
+                        Hiển thị Web <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-</div>
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-8 text-center text-xs text-slate-500 mt-12">
+        <div class="container mx-auto px-6">
+            <p class="mb-2">© 2026 Portal cá nhân của Đỗ Văn Thìn. Tích hợp tương tác 3D đa chiều thông minh.</p>
+            <p class="text-slate-600">Dữ liệu tự động đồng bộ hóa an toàn vào LocalStorage trình duyệt của anh.</p>
+        </div>
+    </footer>
 
-<div class="footer">
-© 2026 • Website được lưu trữ bằng GitHub Pages
-</div>
+    <!-- INTERACTIVE JAVASCRIPT -->
+    <script>
+        // Key for local storage persistence
+        const STORAGE_KEY = "thindo_portal_projects";
 
-</div>
+        // Default default system projects if none exist in localStorage
+        const defaultProjects = [
+            {
+                id: "p1",
+                title: "Đồng Hồ Số (Digital Clock)",
+                url: "https://thindo7602-glitch.github.io/digital-clock.html",
+                githubUrl: "https://github.com/thindo7602-glitch/thindo7602-glitch.github.io/blob/main/digital-clock.html",
+                description: "Một công cụ đồng hồ số trực quan thời gian thực, thiết kế gọn nhẹ, tối giản và mượt mà.",
+                category: "Công cụ",
+                tags: ["HTML", "CSS", "JavaScript", "Real-Time"],
+                isDefault: true
+            },
+            {
+                id: "p2",
+                title: "Bảng Điều Khiển Tiến Hóa (Evolution Dashboard)",
+                url: "https://thindo7602-glitch.github.io/evolution-dashboard.html",
+                githubUrl: "https://github.com/thindo7602-glitch/thindo7602-glitch.github.io/blob/main/evolution-dashboard.html",
+                description: "Giao diện Dashboard phân tích dữ liệu trực quan sinh động, tối ưu hóa hiển thị tham số thông tin.",
+                category: "Hệ thống",
+                tags: ["Dashboard", "UI/UX", "Data Graphics"],
+                isDefault: true
+            },
+            {
+                id: "p3",
+                title: "Nhân Tố Tiến Hóa (Evolution Factors)",
+                url: "https://thindo7602-glitch.github.io/evolution-factors.html",
+                githubUrl: "https://github.com/thindo7602-glitch/thindo7602-glitch.github.io/blob/main/evolution-factors.html",
+                description: "Mô hình tổng hợp và đánh giá các yếu tố, chỉ số cốt lõi thúc đẩy hoạt động nâng cấp, cải tiến.",
+                category: "Hệ thống",
+                tags: ["Evolution", "Metrics", "Analysis"],
+                isDefault: true
+            },
+            {
+                id: "p4",
+                title: "Phân Tích Newspeak (Newspeak Analysis)",
+                url: "https://thindo7602-glitch.github.io/newspeak-analysis.html",
+                githubUrl: "https://github.com/thindo7602-glitch/thindo7602-glitch.github.io/blob/main/newspeak-analysis.html",
+                description: "Nghiên cứu cấu trúc và định hình tư duy logic ngôn ngữ học đặc biệt phục vụ kỹ năng lập luận phản biện.",
+                category: "Ngôn ngữ",
+                tags: ["Logic", "Linguistics", "Newspeak"],
+                isDefault: true
+            }
+        ];
 
+        let currentProjects = [];
+
+        // Load project data
+        function loadProjects() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                currentProjects = JSON.parse(stored);
+            } else {
+                currentProjects = [...defaultProjects];
+                saveToStorage();
+            }
+        }
+
+        function saveToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(currentProjects));
+        }
+
+        // Render projects inside the grid
+        function renderGrid(items) {
+            const grid = document.getElementById('project-grid');
+            const totalCount = document.getElementById('total-count');
+            grid.innerHTML = '';
+            totalCount.textContent = items.length;
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-20 border border-dashed border-slate-800/80 rounded-2xl bg-slate-950/20">
+                        <i class="fa-regular fa-folder-open text-5xl text-slate-600 mb-4 block"></i>
+                        <p class="text-slate-400 font-medium">Không tìm thấy tài nguyên nào tương thích.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            items.forEach(p => {
+                const tagsList = p.tags.map(tag => 
+                    `<span class="bg-slate-900 text-slate-400 text-[10px] font-semibold px-2.5 py-0.5 rounded-md border border-slate-800">${tag}</span>`
+                ).join('');
+
+                // Only show a delete option for user-added projects
+                const deleteBtn = !p.isDefault ? `
+                    <button onclick="deleteProject('${p.id}')" class="text-red-400 hover:text-red-300 text-xs transition-colors p-1" title="Xóa trang này">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                ` : '';
+
+                const cardHTML = `
+                    <div class="glass-panel rounded-2xl tilt-card p-6 flex flex-col justify-between overflow-hidden group border border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_0_35px_rgba(16,185,129,0.12)]" data-id="${p.id}">
+                        <div class="tilt-inner">
+                            <!-- Category and Delete -->
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-[10px] font-bold tracking-wider uppercase text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-md">${p.category}</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-400">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Active
+                                    </span>
+                                    ${deleteBtn}
+                                </div>
+                            </div>
+                            
+                            <!-- Title -->
+                            <h3 class="text-lg font-extrabold text-white group-hover:text-emerald-300 transition-colors mb-2">
+                                <a href="${p.url}" target="_blank">${p.title}</a>
+                            </h3>
+                            
+                            <!-- Desc -->
+                            <p class="text-slate-400 text-xs leading-relaxed mb-5 line-clamp-3">${p.description}</p>
+                            
+                            <!-- Tags -->
+                            <div class="flex flex-wrap gap-1.5 mb-6">
+                                ${tagsList}
+                            </div>
+                        </div>
+
+                        <!-- Footer Actions -->
+                        <div class="border-t border-slate-800/80 pt-4 flex justify-between items-center bg-transparent mt-auto">
+                            ${p.githubUrl ? `
+                            <a href="${p.githubUrl}" target="_blank" class="text-xs text-slate-500 hover:text-slate-300 font-medium flex items-center gap-1.5 transition-colors">
+                                <i class="fab fa-github"></i> Mã nguồn
+                            </a>
+                            ` : `<span class="text-xs text-slate-600 italic">Liên kết ngoài</span>`}
+                            
+                            <a href="${p.url}" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors group/btn">
+                                Khởi chạy 
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+
+            initTiltEffect();
+        }
+
+        // Toggle Add Modal
+        function toggleModal(show) {
+            const modal = document.getElementById('add-modal');
+            const inner = modal.querySelector('div');
+            if (show) {
+                modal.classList.remove('hidden');
+                setTimeout(() => inner.classList.remove('scale-95'), 10);
+            } else {
+                inner.classList.add('scale-95');
+                setTimeout(() => modal.classList.add('hidden'), 150);
+            }
+        }
+
+        // Add a new custom project from inputs
+        function addNewProject(e) {
+            e.preventDefault();
+            const url = document.getElementById('web-url').value;
+            const title = document.getElementById('web-title').value;
+            const desc = document.getElementById('web-desc').value;
+            const category = document.getElementById('web-category').value;
+            const tagsInput = document.getElementById('web-tags').value;
+
+            const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t.length > 0) : ["Web"];
+
+            const newProj = {
+                id: "p_" + Date.now(),
+                title: title,
+                url: url,
+                githubUrl: "", // No github repo code URL for dynamic pastes unless modified
+                description: desc,
+                category: category,
+                tags: tags,
+                isDefault: false
+            };
+
+            currentProjects.push(newProj);
+            saveToStorage();
+            renderGrid(currentProjects);
+            
+            // Reset form and close
+            document.getElementById('add-project-form').reset();
+            toggleModal(false);
+        }
+
+        // Delete a project
+        function deleteProject(id) {
+            currentProjects = currentProjects.filter(p => p.id !== id);
+            saveToStorage();
+            renderGrid(currentProjects);
+        }
+
+        // Reset to default
+        function resetToDefault() {
+            if (confirm("Anh có chắc chắn muốn khôi phục danh sách website về mặc định gốc ban đầu?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                loadProjects();
+                renderGrid(currentProjects);
+            }
+        }
+
+        // 3D Tilt Effect on mouse movement
+        function initTiltEffect() {
+            const cards = document.querySelectorAll('.tilt-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; // x coordinate within element
+                    const y = e.clientY - rect.top;  // y coordinate within element
+                    const xc = rect.width / 2;
+                    const yc = rect.height / 2;
+                    const angleX = (yc - y) / 12; // tilt intensity on X
+                    const angleY = (x - xc) / 12; // tilt intensity on Y
+                    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+                card.style.transition = "transform 0.1s ease-out, box-shadow 0.3s ease";
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+        }
+
+        // Search engine filter
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const filtered = currentProjects.filter(p => 
+                p.title.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query) ||
+                p.tags.some(t => t.toLowerCase().includes(query))
+            );
+            renderGrid(filtered);
+        });
+
+        // Initialize Portal
+        loadProjects();
+        renderGrid(currentProjects);
+    </script>
 </body>
 </html>
