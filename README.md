@@ -1,39 +1,143 @@
 <div align="center">
 
-<br/>
+# 💎 ĐỖ VĂN THÌN
 
-# 🟢 ĐỖ VĂN THÌN
-### CỔNG DỰ ÁN & TIỆN ÍCH TRỰC TUYẾN
+### 🌿 Primary School Teacher • AI Explorer • Education Technology
+
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=28&duration=3500&pause=1000&color=00D9A3&center=true&vCenter=true&width=700&lines=Welcome+to+my+Digital+Space;Education+%2B+Technology;Learning+Never+Stops;Powered+by+AI+%26+Creativity" />
 
 ---
 
-<br/>
-
-## 🌌 THÔNG TIN LIÊN HỆ
-
-<br/>
-
-<!-- Khung tối giản viền ngọc bích sang trọng -->
-<table style="border: 2px solid #00e6b4; border-radius: 16px; background-color: #0b1110; width: 100%; max-width: 450px;">
-  <tr>
-    <td align="center" style="padding: 20px;">
-      <!-- Số điện thoại dễ nhìn -->
-      <a href="tel:0888819957">
-        <img src="https://img.shields.io/badge/HOTLINE-0888.819.957-00e6b4?style=for-the-badge&logo=whatsapp&logoColor=0b1110&labelColor=14201d" />
-      </a>
-      <br/><br/>
-      <!-- Email dễ nhìn -->
-      <a href="mailto:thindo7602@gmail.com">
-        <img src="https://img.shields.io/badge/EMAIL-thindo7602@gmail.com-00ffe0?style=for-the-badge&logo=gmail&logoColor=0b1110&labelColor=14201d" />
-      </a>
-    </td>
-  </tr>
-</table>
-
-<br/>
-<br/>
-
-`Hệ thống đồng bộ tự động Portal 3D Jade`
+<img src="https://img.shields.io/badge/THEME-Dark%20Jade-00D9A3?style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/Teacher-Primary%20Education-00B894?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/AI-Enthusiast-008F72?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/GitHub-Pages-006B54?style=for-the-badge"/>
 
 </div>
 
+---
+
+# 🌌 About Me
+
+```yaml
+Name        : Đỗ Văn Thìn
+Profession  : Primary School Teacher
+Location    : Phú Thọ, Việt Nam
+Experience  : Since 2003
+Specialized : Mathematics • Vietnamese • Homeroom
+Interests   : AI • GitHub • HTML • Dashboard • Education Technology
+```
+
+---
+
+# 🟢 Core Skills
+
+| 💼 Professional | 🚀 Technology |
+|-----------------|---------------|
+| 📚 Primary Education | 🌐 HTML5 |
+| 📝 Lesson Design | 🎨 CSS3 |
+| 📊 Student Assessment | ⚡ JavaScript |
+| 🧠 Active Learning | 🤖 AI |
+| 📖 Curriculum 2018 | 💻 GitHub Pages |
+
+---
+
+# 💎 Current Focus
+
+```text
+■ AI in Education
+■■■■■■■■■■■■■■■■■ 95%
+
+GitHub Pages
+■■■■■■■■■■■■■■■■□ 90%
+
+Interactive HTML
+■■■■■■■■■■■■■■■■■ 96%
+
+Digital Teaching
+■■■■■■■■■■■■■■■□□ 88%
+
+Dashboard Design
+■■■■■■■■■■■■■■■■■ 94%
+```
+
+---
+
+# 🌿 Educational Philosophy
+
+> "Technology should not replace teachers.
+>
+> Technology empowers teachers to create better learning experiences."
+
+---
+
+# ⚡ Current Projects
+
+- 🌐 Interactive HTML Dashboards
+- 📖 Digital Educational Resources
+- 🤖 AI-assisted Teaching
+- 🎯 GitHub Pages Knowledge Base
+- 📚 Primary Education Toolkit
+
+---
+
+# 📈 GitHub Statistics
+
+<div align="center">
+
+![](https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=dark)
+
+![](https://github-readme-streak-stats.herokuapp.com/?user=YOUR_USERNAME&theme=dark)
+
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&theme=dark)
+
+</div>
+
+---
+
+# 🧰 Technology Stack
+
+<p align="center">
+
+<img src="https://skillicons.dev/icons?i=html,css,js,github,vscode,git"/>
+
+</p>
+
+---
+
+# 🌍 Connect
+
+<p align="center">
+
+⭐ GitHub Pages
+
+📚 Educational Resources
+
+🤖 Artificial Intelligence
+
+💻 HTML Projects
+
+🌿 Continuous Learning
+
+</p>
+
+---
+
+<div align="center">
+
+# 💚 Dark Jade Edition
+
+```
+██████╗  ███████╗
+██╔══██╗ ██╔════╝
+██║  ██║ ███████╗
+██║  ██║ ╚════██║
+██████╔╝ ███████║
+╚═════╝  ╚══════╝
+```
+
+### ✨ Learning • Innovation • Dedication ✨
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:003B2F,100:00D9A3&height=120&section=footer"/>
+
+</div>
