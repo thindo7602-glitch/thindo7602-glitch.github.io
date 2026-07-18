@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoàng tử bé</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Georgia,"Times New Roman",serif;
+    background:#081426;
+    color:#f5f5f5;
+    line-height:1.8;
+}
+
+header{
+    padding:80px 20px;
+    text-align:center;
+    background:linear-gradient(#102542,#081426);
+}
+
+h1{
+    font-size:64px;
+    margin:0;
+    color:#ffd166;
+}
+
+.subtitle{
+    color:#cfd8dc;
+    font-style:italic;
+    margin-top:10px;
+}
+
+main{
+    max-width:900px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+section{
+    background:rgba(255,255,255,.05);
+    margin:25px 0;
+    padding:25px;
+    border-radius:12px;
+}
+
+h2{
+    color:#ffd166;
+}
+
+blockquote{
+    border-left:4px solid #ffd166;
+    padding-left:15px;
+    color:#eeeeee;
+    font-style:italic;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border-bottom:1px solid #444;
+    padding:10px;
+    text-align:left;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>🌟 Hoàng tử bé</h1>
+
+<p class="subtitle">
+Antoine de Saint-Exupéry
+</p>
+
+</header>
+
+<main>
+
+<section>
+
+<h2>📖 Giới thiệu</h2>
+
+<p>
+
+<b>Hoàng tử bé</b> là một tác phẩm kinh điển của văn học thế giới. Dưới hình thức một câu chuyện giản dị, cuốn sách gửi gắm nhiều suy ngẫm về tình yêu, tình bạn, trách nhiệm và cách con người nhìn nhận cuộc sống.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>👤 Những nhân vật đáng nhớ</h2>
+
+<table>
+
+<tr>
+<th>Nhân vật</th>
+<th>Ý nghĩa biểu tượng</th>
+</tr>
+
+<tr>
+<td>Hoàng tử bé</td>
+<td>Sự hồn nhiên và trái tim trong sáng.</td>
+</tr>
+
+<tr>
+<td>Bông hồng</td>
+<td>Tình yêu, sự mong manh và trách nhiệm.</td>
+</tr>
+
+<tr>
+<td>Con cáo</td>
+<td>Tình bạn và sự gắn kết.</td>
+</tr>
+
+<tr>
+<td>Người phi công</td>
+<td>Góc nhìn của người trưởng thành đang tìm lại tuổi thơ.</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>🌍 Những thông điệp</h2>
+
+<ul>
+<li>Điều quan trọng nhất không thể nhìn thấy bằng mắt.</li>
+<li>Mỗi con người đều có trách nhiệm với những gì mình yêu thương.</li>
+<li>Người lớn đôi khi quên mất cách nhìn thế giới bằng trái tim.</li>
+<li>Tình bạn cần thời gian để vun đắp.</li>
+</ul>
+
+</section>
+
+<section>
+
+<h2>💬 Câu nói nổi tiếng</h2>
+
+<blockquote>
+
+"Chỉ có trái tim mới nhìn thấy rõ. Điều cốt yếu thì mắt không thể thấy được."
+
+</blockquote>
+
+</section>
+
+<section>
+
+<h2>⭐ Vì sao nên đọc?</h2>
+
+<p>
+
+Dù được xem là một cuốn sách dành cho thiếu nhi, <b>Hoàng tử bé</b> lại chứa đựng những suy ngẫm sâu sắc về cuộc sống. Mỗi lần đọc ở một độ tuổi khác nhau, người đọc thường tìm thấy những ý nghĩa mới.
+
+</p>
+
+</section>
+
+</main>
+
+<footer>
+
+Hoàng tử bé • Một tác phẩm vượt thời gian
+
+</footer>
+
+</body>
+</html>
